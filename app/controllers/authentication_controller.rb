@@ -156,7 +156,7 @@ class AuthenticationController < ApplicationController
         @result = User.new(form_items)
         if @result.save
             # A new user has been born! Go ahead and build a token for this.
-            user_token = UserToken.create!(user: user)
+            user_token = UserToken.create!(user: @result)
             cookies.signed[:auth] = { value: user_token.token, expires: 3.days.from_now }
 
             # Redirect where was initially wanted.

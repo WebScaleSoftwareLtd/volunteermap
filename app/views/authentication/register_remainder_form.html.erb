@@ -1,3 +1,13 @@
+<% unless @result.nil? %>
+    <div class="alert alert-danger">
+        <ul>
+            <% @result.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 <%= form_with method: :post, data: {turbo: false} do |form| %>
     <%= form.text_field :username, value: params[:username] %>
     <%= form.text_field :password %>
