@@ -1,0 +1,24 @@
+<% unless @pending_signup.nil? %>
+    <% if @pending_signup.errors.any? %>
+        <div class="alert alert-danger">
+            <ul>
+                <% @pending_signup.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% else %>
+        <div class="alert alert-success">
+            <p>
+                A confirmation email has been sent to <%= @pending_signup.email %>.
+                Please click the link in the email to complete your registration.
+            </p>
+        </div>
+    <% end %>
+<% end %>
+
+<%= form_with method: :post, data: {turbo: false} do |form| %>
+    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+    <%= form.text_field :email, value: params[:email] %>
+    <%= form.submit 'Register' %>
+<% end %>

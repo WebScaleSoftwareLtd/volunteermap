@@ -1,0 +1,13 @@
+<% if @invalid %>
+    <p>
+        invalid 2fa code
+    </p>
+<% end %>
+
+<%= form_with method: :post, data: {turbo: false} do |form| %>
+    <%= form.hidden_field :type, value: '2fa' %>
+    <%= form.hidden_field :token, value: params[:token] %>
+    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+    <%= form.text_field :'2fa_token' %>
+    <%= form.submit 'Submit' %>
+<% end %>
