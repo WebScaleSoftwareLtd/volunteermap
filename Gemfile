@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.5"
 
+# Libraries for DNS.
+gem "net-dns"
+gem "dnsruby"
+
 # Library for TOTP.
 gem "rotp"
 
