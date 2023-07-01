@@ -2,8 +2,12 @@
     <div class="flex items-center">
         <a href="/">
             <img
-                src="/images/logo.png"
-                alt="VolunteerMap" class="h-8 mr-2"
+                src="/logo-black.png"
+                alt="VolunteerMap" class="h-8 mb-1 mr-2 dark:hidden"
+            >
+            <img
+                src="/logo-white.png"
+                alt="VolunteerMap" class="h-8 mb-1 mr-2 hidden dark:block"
             >
         </a>
     </div>
@@ -11,7 +15,7 @@
         <% if user %>
             <a tabindex="0">
                 <img
-                    src="/default.png"
+                    src="/default_pfp.png"
                     alt="Avatar" class="h-8 rounded-full"
                     aria-haspopup="true"
                 >
