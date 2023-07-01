@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.5"
 
+# Setup font-awesome for icons.
+gem "font-awesome-sass", "~> 6.4.0"
+
 # Build reusable components for the codebase.
 gem "view_component"
 

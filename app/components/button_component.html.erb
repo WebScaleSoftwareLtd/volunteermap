@@ -3,5 +3,6 @@
     <% if @type == 'submit' %> type="submit"<% end %>
     class="px-3 py-2 rounded-lg <%= pick_color %>"
 >
+    <% if @icon %><%= icon 'fa-solid', @icon %><% end %>
     <%= @label %>
 </button>

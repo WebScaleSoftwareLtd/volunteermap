@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ViewComponent::Base
-  def initialize(name:, label:, type:)
+  def initialize(name:, label:, type:, icon: nil)
     @name = name
     @label = label
     @type = type
+    @icon = icon
   end
 
   def pick_color
