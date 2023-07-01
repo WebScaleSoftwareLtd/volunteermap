@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-slate-800 p-4 block w-full h-full dark:text-white">
+<div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
     <div class="flex">
         <div class="flex-col">
             <img
@@ -23,7 +23,77 @@
         </div>
     </div>
 
-    <hr class="my-6 dark:border-gray-600" />
+    <hr class="mt-4 mb-2 dark:border-gray-600" />
 
-    Hello World!
+    <%= form_with method: :delete, url: '/auth/logout', data: {turbo: false} do %>
+        <button type="submit">
+            <div class="flex m-2">
+                <div class="flex-col text-4xl font-thin">
+                    <%= icon 'fa-solid', 'key' %>
+                </div>
+                <div class="flex-col text-left ml-4">
+                    <h1 class="text-xl font-bold">
+                        Sign Out
+                    </h1>
+                    <p class="mt-1 dark:text-gray-200">
+                        Sign out of your account from all devices you are logged into.
+                    </p>
+                </div>
+            </div>
+        </button>
+    <% end %>
+
+    <hr class="my-4 mt-2 dark:border-gray-600" />
+
+    <a class="text-black dark:text-white" href="/user/bookmarks">
+        <div class="flex m-2">
+            <div class="flex-col text-4xl font-thin">
+                <%= icon 'fa-solid', 'bookmark' %>
+            </div>
+            <div class="flex-col text-left ml-6">
+                <h1 class="text-xl font-bold">
+                    Bookmarks
+                </h1>
+                <p class="mt-1 dark:text-gray-200">
+                    Lists all of the bookmarks associated with your user.
+                </p>
+            </div>
+        </div>
+    </a>
+
+    <hr class="my-4 dark:border-gray-600" />
+
+    <a class="text-black dark:text-white" href="/user/postings">
+        <div class="flex m-2">
+            <div class="flex-col text-4xl font-thin">
+                <%= icon 'fa-solid', 'paper-plane' %>
+            </div>
+            <div class="flex-col text-left ml-4">
+                <h1 class="text-xl font-bold">
+                    Postings
+                </h1>
+                <p class="mt-1 dark:text-gray-200">
+                    Lists all of the postings associated with your user.
+                </p>
+            </div>
+        </div>
+    </a>
+
+    <hr class="my-4 dark:border-gray-600" />
+
+    <a class="text-black dark:text-white" href="/user/domains">
+        <div class="flex m-2">
+            <div class="flex-col text-4xl font-thin">
+                <%= icon 'fa-solid', 'globe' %>
+            </div>
+            <div class="flex-col text-left ml-4">
+                <h1 class="text-xl font-bold">
+                    Domains
+                </h1>
+                <p class="mt-1 dark:text-gray-200">
+                    Lists all of the domains associated with your user.
+                </p>
+            </div>
+        </div>
+    </a>
 </div>
