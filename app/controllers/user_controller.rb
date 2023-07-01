@@ -25,10 +25,10 @@ class UserController < ApplicationController
     end
 
     def profile
-        if user.username == params[:username]
+        if user && user.username == params[:username]
             @profile_user = user
         else
-            @profile_user = User.find_by('UPPER(username) = UPPER(?)', params[:username]).first
+            @profile_user = User.find_by!('UPPER(username) = UPPER(?)', params[:username])
         end
         @opportunities = @profile_user.opportunities.page(params[:page])
     end

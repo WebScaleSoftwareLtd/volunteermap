@@ -10,7 +10,7 @@
             </h1>
         </div>
 
-        <% if @profile_user.id == user.id %>
+        <% if user && @profile_user.id == user.id %>
             <div class="flex-grow text-right ml-6 mt-1">
                 <p>
                     <%= render ButtonComponent.new(
