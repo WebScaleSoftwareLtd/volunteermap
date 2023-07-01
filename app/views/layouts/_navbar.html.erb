@@ -1,0 +1,29 @@
+<nav class="flex items-center justify-between px-6 py-4 bg-white dark:bg-slate-800 shadow-lg">
+    <div class="flex items-center">
+        <a href="/">
+            <img
+                src="/images/logo.png"
+                alt="VolunteerMap" class="h-8 mr-2"
+            >
+        </a>
+    </div>
+    <div>
+        <% if user %>
+            <a tabindex="0">
+                <img
+                    src="/default.png"
+                    alt="Avatar" class="h-8 rounded-full"
+                    aria-haspopup="true"
+                >
+            </a>
+        <% else %>
+            <a
+                href="/auth/login"
+                class="text-gray-800 dark:text-gray-100 text-sm
+                hover:text-gray-600 dark:hover:text-gray-400 font-bold"
+            >
+                Login or Register
+            </a>
+        <% end %>
+    </div>
+</nav>

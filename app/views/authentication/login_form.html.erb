@@ -1,4 +1,4 @@
-<div class="block text-center mt-4">
+<div class="block text-center mt-8">
     <%= render TitleComponent.new(
         title: 'Login to VolunteerMap',
         subtitle: 'Login to VolunteerMap to manage your existing postings, domain associations, and bookmarks.',
@@ -43,7 +43,7 @@
     </div>
 
     <%= form_with id: '__register_form', method: :post, url: '/auth/register', data: {turbo: false} do |form| %>
-        <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+        <%= form.hidden_field :redirect_to, id: '_redirect_to', value: params[:redirect_to] %>
     <% end %>
 
     <script>

@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
     before_action :handle_token
+    helper_method :user
+
+    def user
+        @user
+    end
 
     private
 
