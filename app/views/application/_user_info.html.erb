@@ -1,0 +1,18 @@
+<div class="block">
+    <div class="flex">
+        <div class="flex-col">
+            <img
+                src="/default-pfp.png"
+                alt="Avatar" class="h-16 rounded-full"
+            >
+        </div>
+        <div class="flex-col ml-6">
+            <h1 class="text-2xl font-bold">
+                <%= user.username %>
+            </h1>
+            <p class="mt-1 dark:text-gray-200">
+                Member since <%= user.created_at.strftime("%B %Y") %>
+            </p>
+        </div>
+    </div>
+</div>
