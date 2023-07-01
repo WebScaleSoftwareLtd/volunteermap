@@ -1,16 +1,44 @@
-<% unless @result.nil? %>
-    <div class="alert alert-danger">
-        <ul>
-            <% @result.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-        </ul>
-    </div>
-<% end %>
+<div class="block text-center mt-4">
+    <%= render TitleComponent.new(
+        title: 'Register',
+        subtitle: 'Register to VolunteerMap to manage postings, domain associations, and bookmarks.',
+    ) %>
 
-<%= form_with method: :post, data: {turbo: false} do |form| %>
-    <%= form.text_field :username, value: params[:username] %>
-    <%= form.text_field :password %>
-    <%= form.text_field :password_confirmation %>
-    <%= form.submit 'Register' %>
-<% end %>
+    <div class="text-left px-2 sm:w-1/2 max-w-xl mx-auto">
+        <% unless @result.nil? %>
+            <%= render NotificationComponent.new(
+                type: 'error',
+                body: @result.errors.full_messages,
+            ) %>
+        <% end %>
+
+        <%= form_with method: :post, data: {turbo: false} do |form| %>
+            <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :username,
+                label: 'Username',
+                value: params[:username],
+            ) %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :password,
+                label: 'Password',
+                type: :password,
+            ) %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :password_confirmation,
+                label: 'Confirm Password',
+                type: :password,
+            ) %>
+            <div class="text-center mt-6">
+                <%= render ButtonComponent.new(
+                    name: 'register',
+                    label: 'Register',
+                    type: 'submit',
+                ) %>
+            </div>
+        <% end %>
+    </div>
+</div>

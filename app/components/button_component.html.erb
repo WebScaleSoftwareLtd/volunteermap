@@ -1,0 +1,7 @@
+<button
+    name="<%= @name %>"
+    <% if @type == 'submit' %> type="submit"<% end %>
+    class="px-3 py-2 rounded-lg <%= pick_color %>"
+>
+    <%= @label %>
+</button>

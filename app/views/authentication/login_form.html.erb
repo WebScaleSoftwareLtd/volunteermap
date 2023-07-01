@@ -1,17 +1,58 @@
-<% if @invalid %>
-    <p>
-        invalid username or password
-    </p>
-<% end %>
+<div class="block text-center mt-4">
+    <%= render TitleComponent.new(
+        title: 'Login to VolunteerMap',
+        subtitle: 'Login to VolunteerMap to manage your existing postings, domain associations, and bookmarks.',
+    ) %>
 
-<%= form_with method: :post, data: {turbo: false} do |form| %>
-    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
-    <%= form.text_field :username_or_email, value: params[:username_or_email] %>
-    <%= form.text_field :password %>
-    <%= form.submit 'Login' %>
-<% end %>
+    <div class="text-left px-2 sm:w-1/2 max-w-xl mx-auto">
+        <% if @invalid %>
+            <%= render NotificationComponent.new(
+                type: 'error',
+                body: ['Invalid username or password.'],
+            ) %>
+        <% end %>
 
-<%= form_with method: :post, url: '/auth/register', data: {turbo: false} do |form| %>
-    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
-    <%= form.submit 'Register' %>
-<% end %>
+        <%= form_with method: :post, data: {turbo: false} do |form| %>
+            <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :username_or_email,
+                label: 'Username or E-mail',
+                value: params[:username_or_email],
+            ) %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :password,
+                label: 'Password',
+                type: :password,
+            ) %>
+            <div class="text-center mt-6">
+                <%= render ButtonComponent.new(
+                    name: 'login',
+                    label: 'Login',
+                    type: 'submit',
+                ) %>
+            </div>
+        <% end %>
+
+        <hr class="my-6 dark:border-gray-700" />
+
+        <p class="text-center">
+            Don't have an account? <a id="__register_link" href="/auth/register">Register here!</a>
+        </p>
+    </div>
+
+    <%= form_with id: '__register_form', method: :post, url: '/auth/register', data: {turbo: false} do |form| %>
+        <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+    <% end %>
+
+    <script>
+        (function () {
+            // Make clicking the register link submit the register form.
+            document.getElementById("__register_link").onclick = e => {
+                e.preventDefault();
+                document.getElementById("__register_form").submit();
+            };
+        })();
+    </script>
+</div>

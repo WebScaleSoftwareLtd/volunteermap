@@ -1,13 +1,35 @@
-<% if @invalid %>
-    <p>
-        invalid 2fa code
-    </p>
-<% end %>
+<div class="block text-center mt-4">
+    <%= render TitleComponent.new(
+        title: 'One more thing!',
+        subtitle: 'To login to your account, you need to enter the 2FA code from your authenticator app or a recovery code.',
+    ) %>
 
-<%= form_with method: :post, data: {turbo: false} do |form| %>
-    <%= form.hidden_field :type, value: '2fa' %>
-    <%= form.hidden_field :token, value: params[:token] %>
-    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
-    <%= form.text_field :'2fa_token' %>
-    <%= form.submit 'Submit' %>
-<% end %>
+    <div class="text-left px-2 sm:w-1/2 max-w-xl mx-auto">
+        <% if @invalid %>
+            <%= render NotificationComponent.new(
+                type: 'error',
+                body: ['Invalid 2FA code.'],
+            ) %>
+        <% end %>
+
+        <%= form_with method: :post, data: {turbo: false} do |form| %>
+            <%= form.hidden_field :type, value: '2fa' %>
+            <%= form.hidden_field :token, value: params[:token] %>
+            <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :'2fa_token',
+                label: '2FA Code',
+                value: params[:'2fa_token'],
+            ) %>
+            <div class="text-center mt-6">
+                <%= render ButtonComponent.new(
+                    name: 'submit',
+                    label: 'Submit Code',
+                    type: 'submit',
+                ) %>
+            </div>
+        <% end %>
+    </div>
+</div>

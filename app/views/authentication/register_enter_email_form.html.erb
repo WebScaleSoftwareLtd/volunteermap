@@ -1,24 +1,43 @@
-<% unless @pending_signup.nil? %>
-    <% if @pending_signup.errors.any? %>
-        <div class="alert alert-danger">
-            <ul>
-                <% @pending_signup.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% else %>
-        <div class="alert alert-success">
-            <p>
-                A confirmation email has been sent to <%= @pending_signup.email %>.
-                Please click the link in the email to complete your registration.
-            </p>
-        </div>
-    <% end %>
-<% end %>
+<div class="block text-center mt-4">
+    <%= render TitleComponent.new(
+        title: 'Register',
+        subtitle: 'Register to VolunteerMap to manage postings, domain associations, and bookmarks.',
+    ) %>
 
-<%= form_with method: :post, data: {turbo: false} do |form| %>
-    <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
-    <%= form.text_field :email, value: params[:email] %>
-    <%= form.submit 'Register' %>
-<% end %>
+    <div class="text-left px-2 sm:w-1/2 max-w-xl mx-auto">
+        <% unless @pending_signup.nil? %>
+            <% if @pending_signup.errors.any? %>
+                <%= render NotificationComponent.new(
+                    type: 'error',
+                    body: @pending_signup.errors.full_messages,
+                ) %>
+            <% else %>
+                <%= render NotificationComponent.new(
+                    type: 'success',
+                    body: [
+                        'A confirmation email has been sent to ' +
+                        @pending_signup.email + '. Please click the link in the email to' +
+                        ' complete your registration.',
+                    ],
+                ) %>
+            <% end %>
+        <% end %>
+
+        <%= form_with method: :post, data: {turbo: false} do |form| %>
+            <%= form.hidden_field :redirect_to, value: params[:redirect_to] %>
+            <%= render TextboxComponent.new(
+                form: form,
+                name: :email,
+                label: 'E-mail Address',
+                value: params[:email],
+            ) %>
+            <div class="text-center mt-6">
+                <%= render ButtonComponent.new(
+                    name: 'register',
+                    label: 'Register',
+                    type: 'submit',
+                ) %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "home#home"
 
   # Defines authentication routes.
   get 'auth/login', to: 'authentication#login_form'

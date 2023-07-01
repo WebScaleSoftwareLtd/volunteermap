@@ -1,0 +1,9 @@
+a {
+    color: #2563eb;
+}
+
+@media (prefers-color-scheme: dark) {
+    a {
+        color: #67c8fc;
+    }
+}

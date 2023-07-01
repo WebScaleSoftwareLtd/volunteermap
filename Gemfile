@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.5"
 
+# Build reusable components for the codebase.
+gem "view_component"
+
 # Libraries for DNS.
 gem "net-dns"
 gem "dnsruby"

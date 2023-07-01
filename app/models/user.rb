@@ -8,7 +8,9 @@ class User < ApplicationRecord
     has_many :user_backup_codes, dependent: :destroy
 
     has_secure_password
-    validates :username, presence: true, uniqueness: { case_sensitive: false }
+    validates :username, presence: true, uniqueness: { case_sensitive: false },
+        format: { with: /\A[a-zA-Z0-9]+\Z/, message: "can only contain letters and numbers" },
+        length: { minimum: 3, maximum: 20 }
     validates :email, uniqueness: true, presence: true,
         format: {
             with: URI::MailTo::EMAIL_REGEXP,

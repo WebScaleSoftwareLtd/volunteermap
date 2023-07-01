@@ -16,7 +16,7 @@ class AuthenticationController < ApplicationController
 
     def login_password_post
         # Find the user by either their username or email.
-        user = User.where('UPPER(username) = UPPER(?) OR UPPER(email) = UPPER(?)', params[:username_or_email], params[:username_or_email]).first
+        user = User.where('UPPER(username) = UPPER(?) OR email = ?', params[:username_or_email], params[:username_or_email].downcase).first
 
         # If the user doesn't exist, we should check against a fake bcrypt hash to prevent timing attacks.
         if user.nil?

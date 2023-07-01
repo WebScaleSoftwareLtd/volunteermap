@@ -1,0 +1,12 @@
+<div class="block<% unless @slim %> my-3<% end %>">
+    <% unless @slim %>
+        <div class="mb-2">
+            <label for="<%= @name %>"><%= @label %>:</label>
+        </div>
+    <% end %>
+    <%=
+        @form.text_field @name, value: @value,
+        placeholder: @label, type: @type,
+        class: 'w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg'
+    %>
+</div>
