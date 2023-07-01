@@ -1,9 +1,9 @@
 <div class="block">
     <div class="flex">
-        <div class="flex-col">
+        <div class="flex-col h-32 w-32 sm:h-16 sm:w-16">
             <img
                 src="/default-pfp.png"
-                alt="Avatar" class="h-16 rounded-full"
+                alt="Avatar" class="rounded-full"
             >
         </div>
         <div class="flex-col ml-4">
@@ -11,7 +11,8 @@
                 <%= user.username %>
             </h1>
             <p class="mt-1 dark:text-gray-200">
-                Member since <%= user.created_at.strftime("%B %Y") %>
+                Member since <%= user.created_at.strftime("%B %Y") %>.
+                Click to view your profile and postings.
             </p>
         </div>
     </div>
