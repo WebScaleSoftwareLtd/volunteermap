@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_28_004742) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_025001) do
   create_table "domain_associations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "validation_active", default: true, null: false
@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_28_004742) do
     t.datetime "updated_at", null: false
     t.string "password_digest", null: false
     t.string "2fa_token"
+    t.index "UPPER(username)", name: "index_users_on_UPPER_username", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["user_validation_id"], name: "index_users_on_user_validation_id", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
