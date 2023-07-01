@@ -1,3 +1,20 @@
+<% unless user.nil? %>
+    <dialog id="user_dialog" class="m-auto p-0">
+        <%= render partial: 'layouts/user_modal' %>
+    </dialog>
+    <script>
+        // Handle if the outside is clicked.
+        (function () {
+            const dialog = document.getElementById("user_dialog");
+            dialog.addEventListener("click", e => {
+                if (e.target === dialog) {
+                    dialog.close();
+                }
+            });
+        })();
+    </script>
+<% end %>
+
 <nav class="flex items-center justify-between px-6 py-4 bg-white dark:bg-slate-800 shadow-lg">
     <div class="flex items-center">
         <a href="/">
@@ -11,15 +28,30 @@
             >
         </a>
     </div>
+
     <div>
         <% if user %>
-            <a tabindex="0">
+            <a tabindex="0" class="cursor-pointer" id="_pfp" aria-haspopup="true">
                 <img
-                    src="/default_pfp.png"
+                    src="/default-pfp.png"
                     alt="Avatar" class="h-8 rounded-full"
-                    aria-haspopup="true"
                 >
             </a>
+            <script>
+                // Make the link work properly.
+                (function () {
+                    const pfp = document.getElementById("_pfp");
+                    const dialog = document.getElementById("user_dialog");
+                    pfp.addEventListener("keydown", e => {
+                        if (e.key === "Enter") {
+                            pfp.click();
+                        }
+                    });
+                    pfp.onclick = () => {
+                        dialog.showModal();
+                    };
+                })();
+            </script>
         <% else %>
             <a
                 href="/auth/login"

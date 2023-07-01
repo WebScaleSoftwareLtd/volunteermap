@@ -1,0 +1,29 @@
+<div class="bg-white dark:bg-slate-800 p-4 block w-full h-full dark:text-white">
+    <div class="flex">
+        <div class="flex-col">
+            <img
+                src="/default-pfp.png"
+                alt="Avatar" class="h-16 rounded-full"
+            >
+        </div>
+        <div class="flex-col ml-6">
+            <h1 class="text-2xl font-bold">
+                <%= user.username %>
+            </h1>
+            <p class="mt-1 dark:text-gray-200">
+                Member since <%= user.created_at.strftime("%B %Y") %>
+            </p>
+        </div>
+        <div class="flex-grow text-right ml-6 mt-0">
+            <form method="dialog">
+                <button class="text-2xl mt-0" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="my-6 dark:border-gray-600" />
+
+    Hello World!
+</div>
