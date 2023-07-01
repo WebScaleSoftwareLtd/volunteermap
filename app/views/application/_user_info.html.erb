@@ -12,7 +12,7 @@
             </h1>
             <p class="mt-1 dark:text-gray-200">
                 Member since <%= user.created_at.strftime("%B %Y") %>.
-                Click to view your profile and postings.
+                <% unless slim %>Click to view/edit your profile and postings.<% end %>
             </p>
         </div>
     </div>

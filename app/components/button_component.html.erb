@@ -1,8 +1,9 @@
-<button
+<<%= @href ? 'a' : 'button' %>
     name="<%= @name %>"
-    <% if @type == 'submit' %> type="submit"<% end %>
+    <% if @type == 'submit' && !@href %> type="submit"<% end %>
+    <% if @href %>href="<%= @href %>"<% end %>
     class="px-3 py-2 rounded-lg <%= pick_color %>"
 >
     <% if @icon %><%= icon 'fa-solid', @icon %><% end %>
     <%= @label %>
-</button>
+</<%= @href ? 'a' : 'button' %>>

@@ -1,0 +1,33 @@
+<div class="block m-12">
+    <%= render partial: 'user_info', locals: {user: @profile_user, slim: true} %>
+
+    <hr class="my-6 dark:border-gray-700" />
+
+    <div class="flex mb-6">
+        <div class="flex-col">
+            <h1 class="text-2xl font-bold">
+                Open Postings
+            </h1>
+        </div>
+
+        <% if @profile_user.id == user.id %>
+            <div class="flex-grow text-right ml-6 mt-1">
+                <p>
+                    <%= render ButtonComponent.new(
+                        name: 'new_opportunities',
+                        label: 'Submit New Posting',
+                        type: 'success',
+                        icon: 'plus',
+                        href: '/user/posting/new',
+                    ) %>
+                </p>
+            </div>
+        <% end %>
+    </div>
+
+    <% if @opportunities.empty? %>
+        <p>
+            No open postings.
+        </p>
+    <% end %>
+</div>

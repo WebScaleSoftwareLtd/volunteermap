@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.5"
 
+# Pagination!
+gem "kaminari"
+
 # Setup font-awesome for icons.
 gem "font-awesome-sass", "~> 6.4.0"
 
