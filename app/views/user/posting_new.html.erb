@@ -1,0 +1,52 @@
+<div class="block m-12">
+    <%= render TitleComponent.new(
+        title: 'Create a New Posting',
+        subtitle: 'Create postings so other users can search for and bookmark them.',
+        long: true,
+    ) %>
+
+    <turbo-frame id="new-frame">
+        <div class="max-w-3xl">
+            <%= form_with method: :post do |form| %>
+                <%= render SelectComponent.new(
+                    options: Opportunity.categories,
+                    name: 'category',
+                    required: true,
+                    label: 'Category',
+                    description: 'Please select the category for this posting.',
+                ) %>
+
+                <% domains = user.domain_associations.where(validation_active: true).map(&:domain) %>
+
+                <%= render SelectComponent.new(
+                    options: domains,
+                    name: 'domain',
+                    required: false,
+                    label: 'Domain',
+                    description: ('Please select the domain for this posting if you wish to prove this belongs to a representative of a domain. ' +
+                        '<a href="/user/domains">You can add and manage domains here.</a>').html_safe,
+                ) %>
+
+                <%= render TextboxComponent.new(
+                    form: form,
+                    name: :title,
+                    label: 'Title',
+                    description: 'Please enter a title for this posting.',
+                    required: true,
+                    value: params[:title],
+                ) %>
+
+                <%= render TextareaComponent.new(
+                    form: form,
+                    name: :description,
+                    label: 'Description',
+                    description: 'Please enter a description for this posting. Some markdown syntax is supported.',
+                    required: true,
+                    value: params[:description],
+                ) %>
+
+                
+            <% end %>
+        </div>
+    </turbo-frame>
+</div>

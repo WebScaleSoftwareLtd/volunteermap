@@ -17,7 +17,7 @@ class UserController < ApplicationController
     end
 
     def posting_new
-        # TODO
+        redirect_to '/auth/login' unless user.present?
     end
 
     def submit_posting
@@ -25,7 +25,7 @@ class UserController < ApplicationController
     end
 
     def profile
-        if user && user.username == params[:username]
+        if user && user.username.downcase == params[:username].downcase
             @profile_user = user
         else
             @profile_user = User.find_by!('UPPER(username) = UPPER(?)', params[:username])

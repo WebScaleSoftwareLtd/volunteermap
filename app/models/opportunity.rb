@@ -1,10 +1,14 @@
 class Opportunity < ApplicationRecord
     include AlgoliaSearch
 
-    CATEGORIES = [
+    @@categories = [
         'Animal Shelter', 'Homeless Services', 'Food Bank', 'Soup Kitchen',
         'Humanitarian Aid', 'Environmental Action', 'Demonstrations', 'Other',
-    ]
+    ].freeze
+
+    def self.categories
+        @@categories
+    end
 
     belongs_to :user
     belongs_to :domain_association, optional: true
@@ -12,7 +16,7 @@ class Opportunity < ApplicationRecord
     validates :mentally_taxing, inclusion: { in: [true, false] }
     validates :physically_taxing, inclusion: { in: [true, false] }
     validates :time_flexible, inclusion: { in: [true, false] }
-    validates :category, presence: true, inclusion: { in: CATEGORIES }
+    validates :category, presence: true, inclusion: { in: @@categories }
     validate :domain_association_is_valid!
 
     algoliasearch do
