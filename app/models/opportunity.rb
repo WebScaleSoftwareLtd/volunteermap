@@ -13,15 +13,20 @@ class Opportunity < ApplicationRecord
     belongs_to :user
     belongs_to :domain_association, optional: true
 
+    before_validation :set_uuid!
     validates :mentally_taxing, inclusion: { in: [true, false] }
     validates :physically_taxing, inclusion: { in: [true, false] }
     validates :time_flexible, inclusion: { in: [true, false] }
     validates :category, presence: true, inclusion: { in: @@categories }
+    validates :title, presence: true, length: { maximum: 100, minimum: 5 }
+    validates :description, presence: true, length: { maximum: 10000, minimum: 5 }
+    validates :latitude, presence: true
+    validates :longitude, presence: true
     validate :domain_association_is_valid!
 
     algoliasearch do
         attribute :created_at, :updated_at, :title, :description, :mentally_taxing,
-            :physically_taxing, :time_flexible, :category
+            :physically_taxing, :time_flexible, :category, :uuid
 
         attribute :created_at_i do
             created_at.to_i
@@ -44,6 +49,10 @@ class Opportunity < ApplicationRecord
     end
 
     private
+
+    def set_uuid!
+        self.uuid = SecureRandom.uuid if uuid.nil?
+    end
 
     def domain_association_is_valid!
         return if domain_association.nil?

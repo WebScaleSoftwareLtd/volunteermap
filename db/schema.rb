@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_01_025001) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_02_141238) do
   create_table "domain_associations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "validation_active", default: true, null: false
@@ -47,8 +47,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_01_025001) do
     t.decimal "longitude", precision: 10, scale: 6, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uuid", null: false
     t.index ["domain_association_id"], name: "index_opportunities_on_domain_association_id"
     t.index ["user_id"], name: "index_opportunities_on_user_id"
+    t.index ["uuid"], name: "index_opportunities_on_uuid", unique: true
   end
 
   create_table "pending_signups", force: :cascade do |t|

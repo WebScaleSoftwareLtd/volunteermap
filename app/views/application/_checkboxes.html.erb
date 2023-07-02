@@ -1,0 +1,22 @@
+<div class="flex">
+    <div class="flex-col">
+        <input type="checkbox" class="my-auto" <%= check_if_set :mentally_taxing %> name="mentally_taxing" value="1">
+        <label for="mentally_taxing">
+            <%= icon 'fa-solid', 'brain' %> Mentally Taxing
+        </label>
+    </div>
+
+    <div class="flex-col ml-4">
+        <input type="checkbox" class="my-auto" <%= check_if_set :physically_taxing %> name="physically_taxing" value="1">
+        <label for="physically_taxing">
+            <%= icon 'fa-solid', 'person-military-pointing' %> Physically Taxing
+        </label>
+    </div>
+
+    <div class="flex-col ml-4">
+        <input type="checkbox" class="my-auto" <%= check_if_set :time_flexible %> name="time_flexible" value="1">
+        <label for="time_flexible">
+            <%= icon 'fa-solid', 'clock' %> Time Flexible
+        </label>
+    </div>
+</div>
