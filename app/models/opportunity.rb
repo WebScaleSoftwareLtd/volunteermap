@@ -43,8 +43,7 @@ class Opportunity < ApplicationRecord
         end
 
         attribute :domain_name do
-            return nil if domain_association.nil?
-            domain_association.domain
+            domain_association ? domain_association.domain : nil
         end
     end
 
