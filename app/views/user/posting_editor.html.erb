@@ -94,6 +94,19 @@
                     value: params[:website],
                 ) %>
 
+                <div data-controller="google-maps">
+                    <p>
+                        <b>Activity Location:</b>
+                    </p>
+                    <p class="text-sm text-gray-900 dark:text-gray-300 mb-2">
+                        The point on the map specifies the location of the activity.
+                    </p>
+
+                    <input data-google-maps-target="lat" type="hidden" name="latitude" id="latitude" value="<%= params[:latitude] %>">
+                    <input data-google-maps-target="lng" type="hidden" name="longitude" id="longitude" value="<%= params[:longitude] %>">
+                    <div data-google-maps-target="map" style="height: 300px"></div>
+                </div>
+
                 <div class="mt-5">
                     <%= render ButtonComponent.new(
                         name: 'submit',
