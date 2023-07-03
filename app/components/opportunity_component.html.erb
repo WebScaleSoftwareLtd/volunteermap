@@ -4,15 +4,32 @@
             <%= @value.title %>
         </h2>
 
-        <%= render OpportunityLinksComponent.new(
-            value: @value,
-            owned: @owned,
-        ) %>
+        <div class="text-sm">
+            <%= render OpportunityAttributesComponent.new(value: @value) %>
 
-        <p class="mt-4 dark:text-gray-200">
+            <%= render OpportunityLinksComponent.new(
+                value: @value,
+                owned: @owned,
+            ) %>
+        </div>
+
+        <p class="mt-2 text-sm dark:text-gray-200">
             <a class="unstyled" href="/opportunities/<%= @value.uuid %>" target="_blank">
                 <%= truncate @value.description, length: 200 %>
             </a>
+        </p>
+
+        <p class="text-sm mt-2">
+            Posted by <a href="/users/<%= @value.user.username %>">
+                <%= @value.user.username %>
+            </a> on <%= @value.created_at.strftime('%B %d, %Y') %>.
+            <% if @value.domain_association.present? %>
+                <% if @value.domain_association.validation_active %>
+                    User validated as associated with <%= @value.domain_association.domain %>.
+                <% else %>
+                    User previously validated as associated with <%= @value.domain_association.domain %>, but no longer can.
+                <% end %>
+            <% end %>
         </p>
     </div>
 </a>
