@@ -16,7 +16,9 @@
     
     <hr class="my-6 dark:border-gray-600" />
 
-    <div data-controller="google-maps" class="max-w-xl" data-draggable="false">
+    <%= render OpportunityAttributesComponent.new(value: @record) %>
+
+    <div data-controller="google-maps" class="max-w-xl mt-6" data-draggable="false">
         <input data-google-maps-target="lat" type="hidden" value="<%= @record.latitude %>">
         <input data-google-maps-target="lng" type="hidden" value="<%= @record.longitude %>">
         <div data-google-maps-target="map" style="height: 300px"></div>
