@@ -57,16 +57,16 @@ class OpportunityController < ApplicationController
 
         # If a domain is present, transform it into a domain association.
         if params[:domain].present?
-            params[:domain_association] = user.domain_associations.find_by(domain: params[:domain], validation_active: true)
+            params[:domain_association_id] = user.domain_associations.find_by(domain: params[:domain], validation_active: true).id
             params.delete(:domain)
         else
             # Just to be safe...
-            params.delete(:domain_association)
+            params.delete(:domain_association_id)
         end
 
         # Get the parameter filter.
         param_filter = params.permit(
-            :domain_association, :mentally_taxing, :physically_taxing, :time_flexible,
+            :domain_association_id, :mentally_taxing, :physically_taxing, :time_flexible,
             :category, :title, :description, :email, :phone, :website, :latitude, :longitude,
         )
 
