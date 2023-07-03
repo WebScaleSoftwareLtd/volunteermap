@@ -44,6 +44,13 @@ class OpportunityController < ApplicationController
         end
     end
 
+    def delete_opportunity
+        return redirect_to '/auth/login' unless user.present?
+        raise ActiveRecord::RecordNotFound unless @record.user == user
+        @record.destroy
+        redirect_to "/users/#{user.username}"
+    end
+
     def opportunity; end
 
     private

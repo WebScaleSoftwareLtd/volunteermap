@@ -2,6 +2,7 @@
     <%= render TitleComponent.new(
         title: @edit ? 'Edit a Posting' : 'Create a New Posting',
         subtitle: @edit ? 'Edit an existing posting.' : 'Create postings so other users can search for and bookmark them.',
+        side: @edit ? render(partial: 'delete_flex_side') : nil,
         long: true,
     ) %>
 

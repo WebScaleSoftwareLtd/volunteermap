@@ -1,6 +1,18 @@
-<h1 class="text-3xl font-bold"><%= @title %></h1>
-<p class="mt-4 dark:text-gray-200">
-    <%= @subtitle %>
-</p>
+<% if @side %>
+<div class="flex">
+    <div class="flex-col">
+<% end %>
+        <h1 class="text-3xl font-bold"><%= @title %></h1>
+        <p class="mt-4 dark:text-gray-200">
+            <%= @subtitle %>
+        </p>
+<% if @side %>
+    </div>
+<% end %>
+
+<% if @side %>
+    <%= @side %>
+</div>
+<% end %>
 
 <hr class="my-6 <% unless @long %>mx-10<% end %> dark:border-gray-600" />

@@ -1,0 +1,10 @@
+<div class="flex-col flex-grow text-right">
+    <%= form_with method: :delete do |form| %>
+        <%= render ButtonComponent.new(
+            name: 'delete',
+            label: 'Delete Post',
+            type: 'danger',
+            icon: 'times',
+        ) %>
+    <% end %>
+</div>
