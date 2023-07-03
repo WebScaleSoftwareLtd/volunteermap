@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post 'user', to: 'user#update_user'
   get 'user/bookmarks', to: 'user#bookmarks'
   get 'user/domains', to: 'user#domains'
+  post 'user/domains', to: 'user#add_domain'
   get 'users/:username', to: 'user#profile'
 
   # Defines opportunity routes.

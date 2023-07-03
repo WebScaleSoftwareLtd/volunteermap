@@ -1,6 +1,7 @@
 class UserController < ApplicationController
+    before_action :redirect_to_user, except: [:profile]
+
     def current_user
-        redirect_to '/auth/login' unless user.present?
         redirect_to "/users/#{user.username}"
     end
 
@@ -13,7 +14,12 @@ class UserController < ApplicationController
     end
 
     def domains
-        # TODO
+        @domains = user.domain_associations
+    end
+
+    def add_domain
+        @result = user.domain_associations.create(domain: params[:domain])
+        render 'domains'
     end
 
     def profile
@@ -23,5 +29,11 @@ class UserController < ApplicationController
             @profile_user = User.find_by!('UPPER(username) = UPPER(?)', params[:username])
         end
         @opportunities = @profile_user.opportunities.page(params[:page])
+    end
+
+    private
+
+    def redirect_to_user
+        redirect_to '/auth/login' unless user.present?
     end
 end
