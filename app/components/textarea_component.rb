@@ -11,5 +11,4 @@ class TextareaComponent < ViewComponent::Base
       @description = description
       @required = required
     end
-  end
-  
+end

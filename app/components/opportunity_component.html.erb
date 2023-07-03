@@ -1,0 +1,18 @@
+<a class="unstyled" href="/opportunities/<%= @value.uuid %>" target="_blank">
+    <div class="block">
+        <h2 class="text-2xl font-bold">
+            <%= @value.title %>
+        </h2>
+
+        <%= render OpportunityLinksComponent.new(
+            value: @value,
+            owned: @owned,
+        ) %>
+
+        <p class="mt-4 dark:text-gray-200">
+            <a class="unstyled" href="/opportunities/<%= @value.uuid %>" target="_blank">
+                <%= truncate @value.description, length: 200 %>
+            </a>
+        </p>
+    </div>
+</a>

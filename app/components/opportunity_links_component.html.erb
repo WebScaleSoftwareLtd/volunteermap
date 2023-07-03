@@ -1,0 +1,25 @@
+<p class="mt-4 dark:text-slate-300">
+    <% if @value.email.present? %>
+        <a class="unstyled" href="mailto:<%= @value.email %>">
+            <%= icon 'fa-solid', 'envelope' %>  <%= @value.email %>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    <% if @value.phone.present? %>
+        <a class="unstyled" href="tel:<%= @value.phone %>">
+            <%= icon 'fa-solid', 'phone' %>  <%= @value.phone %>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    <% if @value.website.present? %>
+        <a class="unstyled" href="<%= @value.website %>">
+            <%= icon 'fa-solid', 'globe' %>  <%= @value.website %>
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    <% if @owned %>
+        <a class="unstyled" href="/opportunities/<%= @value.uuid %>/edit">
+            <%= icon 'fa-solid', 'pencil' %>  Edit
+        </a>
+    <% end %>
+</p>

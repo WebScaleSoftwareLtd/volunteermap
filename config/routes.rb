@@ -18,7 +18,12 @@ Rails.application.routes.draw do
   post 'user', to: 'user#update_user'
   get 'user/bookmarks', to: 'user#bookmarks'
   get 'user/domains', to: 'user#domains'
-  get 'user/posting/new', to: 'user#posting_new'
-  post 'user/posting/new', to: 'user#submit_posting'
   get 'users/:username', to: 'user#profile'
+
+  # Defines opportunity routes.
+  get 'opportunities/new', to: 'opportunity#new_opportunity'
+  post 'opportunities/new', to: 'opportunity#submit_opportunity'
+  get 'opportunities/:id/edit', to: 'opportunity#edit_opportunity'
+  post 'opportunities/:id/edit', to: 'opportunity#edit_opportunity_submit'
+  get 'opportunities/:id', to: 'opportunity#opportunity'
 end

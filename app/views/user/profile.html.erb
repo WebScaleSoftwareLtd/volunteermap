@@ -18,7 +18,7 @@
                         label: 'Submit New Posting',
                         type: 'success',
                         icon: 'plus',
-                        href: '/user/posting/new',
+                        href: '/opportunities/new',
                     ) %>
                 </p>
             </div>
@@ -29,5 +29,16 @@
         <p>
             No open postings.
         </p>
+    <% else %>
+        <% @opportunities.each do |opportunity| %>
+            <hr class="my-6 dark:border-gray-700" />
+            <%= render OpportunityComponent.new(
+                value: opportunity,
+                owned: user && opportunity.user_id == user.id,
+            ) %>
+        <% end %>
+        <div class="paginator">
+            <%= paginate @opportunities %>
+        </div>
     <% end %>
 </div>

@@ -48,36 +48,39 @@ export default class extends Controller {
       zoom: 16,
     })
 
-    // Setup the search box.
-    const searchBox = new SearchBox(this.searchTarget)
+    // Check if the search box is present.
+    try {
+      // Setup the search box.
+      const searchBox = new SearchBox(this.searchTarget)
 
-    // Listen for the event fired when the user selects a prediction and move
-    // the map and marker to that location.
-    searchBox.addListener("places_changed", () => {
-      const places = searchBox.getPlaces()
-      if (places.length === 0) return
-      const place = places[0]
+      // Listen for the event fired when the user selects a prediction and move
+      // the map and marker to that location.
+      searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces()
+        if (places.length === 0) return
+        const place = places[0]
 
-      // If the place has no geometry, bail.
-      if (!place.geometry) return
+        // If the place has no geometry, bail.
+        if (!place.geometry) return
 
-      // If the place has a geometry, then present it on a map.
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport)
-      }
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+          map.fitBounds(place.geometry.viewport)
+        }
 
-      // Set the position of the marker using the place ID and location.
-      const position = place.geometry.location
-      this.latTarget.value = position.lat().toString()
-      this.lngTarget.value = position.lng().toString()
-      marker.setPosition(position)
-    })
+        // Set the position of the marker using the place ID and location.
+        const position = place.geometry.location
+        this.latTarget.value = position.lat().toString()
+        this.lngTarget.value = position.lng().toString()
+        marker.setPosition(position)
+      })
+    } catch {}
 
     // Add a marker.
     const marker = new google.maps.Marker({
       position: { lat, lng },
       map,
-      draggable: true,
+      draggable: this.element.dataset.draggable ? this.element.dataset.draggable === "true" : true,
     })
 
     // Handle any drag events on the marker.
