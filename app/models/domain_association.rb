@@ -21,7 +21,7 @@ class DomainAssociation < ApplicationRecord
         if is_valid?
             # Zero out the validation check count.
             self.validation_check_count = 0
-            save!
+            update_columns(validation_check_count: 0)
 
             # Return true.
             return true
@@ -32,14 +32,14 @@ class DomainAssociation < ApplicationRecord
         if validation_check_count == 4
             self.validation_active = false
             self.validation_check_count = 0
-            save!
+            update_columns(validation_active: false, validation_check_count: 0)
 
             return false
         end
 
         # Add 1 to the count and return true.
         self.validation_check_count += 1
-        save!
+        update_columns(validation_check_count: validation_check_count)
         true
     end
 

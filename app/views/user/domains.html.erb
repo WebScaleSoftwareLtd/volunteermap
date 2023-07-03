@@ -14,7 +14,9 @@
                     You have not added any domains to your account.
                 </p>
             <% else %>
-                domains!
+                <% @domains.each do |domain| %>
+                    <%= render partial: 'domain_view', locals: {domain: domain} %>
+                <% end %>
             <% end %>
 
             <hr class="my-6 dark:border-gray-700" />
@@ -29,15 +31,15 @@
 
                 <h3 class="text-xl font-semibold">Add Domain</h3>
 
-                <p class="text-md text-gray-600 dark:text-gray-300 my-3">
+                <p class="text-md text-gray-700 dark:text-gray-300 my-3">
                     You will need to verify ownership of the domain before you can use it.
                     You can verify ownership by adding a TXT record to your domain's DNS records. The TXT record should
                     be the following value on the domain you wish to add:
                 </p>
-                <p class="text-md text-gray-600 dark:text-gray-300">
+                <p class="text-md text-gray-700 dark:text-gray-300">
                     <code>validationmap_user_validation=<%= user.user_validation_id %></code>
                 </p>
-                <p class="text-md text-gray-600 dark:text-gray-300 my-3">
+                <p class="text-md text-gray-700 dark:text-gray-300 my-3">
                     Once you have added the TXT record, click the "Verify" button below. If the verification is
                     successful, the domain will be added to your account. If you are unsure how to add a TXT record to
                     your domain, please contact your domain registrar or system administrator for assistance.

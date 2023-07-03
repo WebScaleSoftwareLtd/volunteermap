@@ -18,7 +18,9 @@ class UserController < ApplicationController
     end
 
     def add_domain
-        @result = user.domain_associations.create(domain: params[:domain])
+        @domain = user.domain_associations.create(domain: params[:domain])
+        @domain = nil if @domain.valid?
+        @domains = DomainAssociation.where(user: user)
         render 'domains'
     end
 
