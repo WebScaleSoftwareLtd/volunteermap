@@ -1,0 +1,23 @@
+<div class="flex-col flex-grow text-right">
+    <turbo-frame id="bookmarking_frame">
+        <%= form_with method: :patch do |form| %>
+            <% if user.bookmarks.exists?(opportunity_id: opportunity.id) %>
+                <%= form.hidden_field :strategy, value: 'remove' %>
+                <%= render ButtonComponent.new(
+                    name: 'delete',
+                    label: 'Delete Bookmark',
+                    type: 'danger',
+                    icon: 'times',
+                ) %>
+            <% else %>
+                <%= form.hidden_field :strategy, value: 'add' %>
+                <%= render ButtonComponent.new(
+                    name: 'submit',
+                    label: 'Bookmark',
+                    type: 'success',
+                    icon: 'bookmark',
+                ) %>
+            <% end %>
+        <% end %>
+    </turbo-frame>
+</div>

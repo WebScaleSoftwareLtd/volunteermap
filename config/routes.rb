@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   post 'opportunities/:id/edit', to: 'opportunity#edit_opportunity_submit'
   delete 'opportunities/:id/edit', to: 'opportunity#delete_opportunity'
   get 'opportunities/:id', to: 'opportunity#opportunity'
+  patch 'opportunities/:id', to: 'opportunity#bookmark_opportunity'
 end

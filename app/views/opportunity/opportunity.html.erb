@@ -3,6 +3,7 @@
         title: @record.title,
         subtitle: render(partial: 'subtitle', locals: {record: @record}),
         long: true,
+        side: user ? render(partial: 'bookmark_flex_side', locals: {opportunity: @record}) : nil,
     ) %>
 
     <%= render OpportunityLinksComponent.new(

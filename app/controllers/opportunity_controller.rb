@@ -51,6 +51,16 @@ class OpportunityController < ApplicationController
         redirect_to "/users/#{user.username}"
     end
 
+    def bookmark_opportunity
+        return redirect_to '/auth/login' unless user.present?
+        if params[:strategy] == 'remove'
+            user.bookmarks.destroy_by(opportunity: @record)
+        else
+            user.bookmarks.create(opportunity: @record)
+        end
+        render 'opportunity'
+    end
+
     def opportunity; end
 
     private

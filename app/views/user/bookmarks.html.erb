@@ -11,8 +11,10 @@
                 No bookmarked postings.
             </p>
         <% else %>
-            <% @bookmarks.each do |bookmark| %>
-                <hr class="my-2 dark:border-gray-700" />
+            <% @bookmarks.each_with_index do |bookmark, index| %>
+                <% unless index == 0 %>
+                    <hr class="my-2 dark:border-gray-700" />
+                <% end %>
                 <%= render OpportunityComponent.new(
                     value: bookmark.opportunity,
                     owned: user && bookmark.user_id == user.id,
