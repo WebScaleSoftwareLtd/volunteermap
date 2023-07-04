@@ -3,13 +3,18 @@
         <%= render partial: 'layouts/user_modal' %>
     </dialog>
     <script>
-        // Handle if the outside is clicked.
         (function () {
+            // Handle if the outside is clicked.
             const dialog = document.getElementById("user_dialog");
             dialog.addEventListener("click", e => {
                 if (e.target === dialog) {
                     dialog.close();
                 }
+            });
+
+            // Before turbo caches the page, close the dialog.
+            document.addEventListener("turbo:before-cache", () => {
+                dialog.close();
             });
         })();
     </script>
