@@ -1,6 +1,10 @@
 <div class="block m-12">
     <%= render partial: 'user_info', locals: {user: @profile_user, slim: true} %>
 
+    <% if user && user.id == @profile_user.id %>
+        <%= render partial: 'user_buttons' %>
+    <% end %>
+
     <hr class="my-6 dark:border-gray-700" />
 
     <div class="flex mb-6">

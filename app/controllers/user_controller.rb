@@ -5,6 +5,8 @@ class UserController < ApplicationController
         redirect_to "/users/#{user.username}"
     end
 
+    def user_settings; end
+
     def update_user
         # TODO
     end

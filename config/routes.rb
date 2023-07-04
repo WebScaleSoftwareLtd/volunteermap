@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
   # Defines user routes.
   get 'user', to: 'user#current_user'
-  post 'user', to: 'user#update_user'
+  get 'user/settings', to: 'user#user_settings'
+  post 'user/settings', to: 'user#update_user'
   get 'user/bookmarks', to: 'user#bookmarks'
   get 'user/domains', to: 'user#domains'
   post 'user/domains', to: 'user#add_domain'
