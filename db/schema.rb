@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_02_141238) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_04_061830) do
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "opportunity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["opportunity_id"], name: "index_bookmarks_on_opportunity_id"
+    t.index ["user_id", "opportunity_id"], name: "index_bookmarks_on_user_id_and_opportunity_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
   create_table "domain_associations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "validation_active", default: true, null: false
@@ -83,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_141238) do
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
-    t.string "email"
+    t.string "email", null: false
     t.string "user_validation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,6 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_141238) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "bookmarks", "opportunities"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "domain_associations", "users"
   add_foreign_key "half_tokens", "users"
   add_foreign_key "opportunities", "users"

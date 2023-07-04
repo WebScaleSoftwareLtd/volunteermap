@@ -10,6 +10,8 @@ class Opportunity < ApplicationRecord
         @@categories
     end
 
+    has_many :bookmarks, dependent: :destroy
+
     belongs_to :user
     belongs_to :domain_association, optional: true
 

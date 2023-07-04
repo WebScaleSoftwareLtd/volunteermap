@@ -10,7 +10,7 @@ class UserController < ApplicationController
     end
 
     def bookmarks
-        # TODO
+        @bookmarks = user.bookmarks.page(params[:page])
     end
 
     def domains

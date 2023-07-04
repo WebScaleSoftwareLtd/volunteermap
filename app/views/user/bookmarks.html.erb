@@ -1,0 +1,26 @@
+<div class="block m-12">
+    <%= render TitleComponent.new(
+        title: 'Bookmarks',
+        subtitle: 'View your bookmarked postings.',
+        long: true,
+    ) %>
+
+    <turbo-frame id="bookmarks_frame">
+        <% if @bookmarks.empty? %>
+            <p>
+                No bookmarked postings.
+            </p>
+        <% else %>
+            <% @bookmarks.each do |bookmark| %>
+                <hr class="my-2 dark:border-gray-700" />
+                <%= render OpportunityComponent.new(
+                    value: bookmark.opportunity,
+                    owned: user && bookmark.user_id == user.id,
+                ) %>
+            <% end %>
+            <div class="paginator">
+                <%= paginate @bookmarks %>
+            </div>
+        <% end %>
+    </turbo-frame>
+</div>
