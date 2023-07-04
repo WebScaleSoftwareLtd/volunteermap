@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'user/bookmarks', to: 'user#bookmarks'
   get 'user/domains', to: 'user#domains'
   post 'user/domains', to: 'user#add_domain'
+  delete 'user/domains', to: 'user#delete_domain'
+  patch 'user/domains', to: 'user#revalidate_domain'
   get 'users/:username', to: 'user#profile'
 
   # Defines opportunity routes.

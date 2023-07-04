@@ -24,6 +24,19 @@ class UserController < ApplicationController
         render 'domains'
     end
 
+    def delete_domain
+        user.domain_associations.destroy_by(domain: params[:domain])
+        domains
+        render 'domains'
+    end
+
+    def revalidate_domain
+        domain = user.domain_associations.find_by(domain: params[:domain])
+        domain.validation_check! if domain.present?
+        @domains = DomainAssociation.where(user: user)
+        render 'domains'
+    end
+
     def profile
         if user && user.username.downcase == params[:username].downcase
             @profile_user = user
