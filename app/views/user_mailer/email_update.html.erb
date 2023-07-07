@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Confirm your e-mail address update!</h1>
+    <p>
+      Hey <%= params[:username] %>,
+    </p>
+    <p>
+      We just need to confirm your e-mail address update before it can be applied to your VolunteerMap account!
+      If you didn't request to update your e-mail address, you can safely ignore this e-mail.
+      The link to confirm your e-mail address update is: https://volunteermap.io/auth/email_update/<%= params[:token] %>
+    </p>
+  </body>
+</html>

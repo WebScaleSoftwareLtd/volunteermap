@@ -7,6 +7,7 @@ class User < ApplicationRecord
     has_many :half_tokens, dependent: :destroy
     has_many :user_backup_codes, dependent: :destroy
     has_many :bookmarks, dependent: :destroy
+    has_one :email_update_request, dependent: :destroy
 
     has_secure_password
     validates :username, presence: true, uniqueness: { case_sensitive: false },

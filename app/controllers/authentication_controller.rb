@@ -1,6 +1,6 @@
 class AuthenticationController < ApplicationController
-    skip_before_action :handle_token, except: [:logout]
-    before_action :handle_preexisting_token, except: [:logout]
+    skip_before_action :handle_token, except: [:logout, :email_update]
+    before_action :handle_preexisting_token, except: [:logout, :email_update]
 
     FAKE_HASH = BCrypt::Password.create('fake_hash')
 
@@ -167,6 +167,19 @@ class AuthenticationController < ApplicationController
 
         # Re-render the form.
         render 'register_remainder_form'
+    end
+
+    def email_update
+        # Get and delete the email update request from the token.
+        email_update_request = EmailUpdateRequest.find_by!(token: params[:token])
+        email_update_request.destroy
+
+        # Update the users e-mail.
+        res = email_update_request.user.update(email: email_update_request.email)
+        redirect_to user ? '/user/settings' : '/', status: :see_other if res
+
+        # Get the errors.
+        @errors = email_update_request.user.errors.full_messages
     end
 
     # TODO: password resets

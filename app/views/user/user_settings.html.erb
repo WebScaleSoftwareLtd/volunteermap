@@ -1,0 +1,60 @@
+<div class="block m-12">
+    <%= render TitleComponent.new(
+        title: 'Settings',
+        subtitle: 'Update your account settings.',
+        long: true,
+    ) %>
+
+    <turbo-frame id="settings_frame">
+        <div class="max-w-3xl">
+            <% unless @errors.nil? %>
+                <% if @errors.empty? %>
+                    <%= render NotificationComponent.new(
+                        type: 'success',
+                        body: ['Your settings have been updated.'],
+                    ) %>
+                <% else %>
+                    <%= render NotificationComponent.new(
+                        type: 'error',
+                        body: @errors,
+                    ) %>
+                <% end %>
+            <% end %>
+
+            <%= form_with method: :post do |form| %>
+                <%= render TextboxComponent.new(
+                    form: form,
+                    name: :username,
+                    label: 'Username',
+                    description: 'Your username is what is displayed to other users. Note that changing this will break existing links to your public profile.',
+                    value: user.username,
+                ) %>
+
+                <%= render TextboxComponent.new(
+                    form: form,
+                    name: :email,
+                    label: 'Email',
+                    description: 'Your email is used for account recovery and notifications.',
+                    value: user.email,
+                ) %>
+                <% if user.email_update_request %>
+                    <%= render NotificationComponent.new(
+                        type: 'warning',
+                        body: [
+                            "Please check your email at #{user.email_update_request.email} to confirm your email address change.",
+                        ],
+                    ) %>
+                <% end %>
+
+                <div class="mt-5">
+                    <%= render ButtonComponent.new(
+                        name: 'update',
+                        label: 'Update',
+                        type: 'submit',
+                        icon: 'pen',
+                    ) %>
+                </div>
+            <% end %>
+        </div>
+    </turbo-frame>
+</div>

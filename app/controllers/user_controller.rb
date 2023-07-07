@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-    before_action :redirect_to_user, except: [:profile]
+    before_action :redirect_to_auth, except: [:profile]
 
     def current_user
         redirect_to "/users/#{user.username}"
@@ -8,7 +8,15 @@ class UserController < ApplicationController
     def user_settings; end
 
     def update_user
-        # TODO
+        @errors = []
+
+        res = user_model_updates
+        @errors = res if res.present?
+
+        res = email_update
+        @errors.concat(res) if res.present?
+
+        render 'user_settings', status: @errors.present? ? :bad_request : :ok
     end
 
     def bookmarks
@@ -50,7 +58,36 @@ class UserController < ApplicationController
 
     private
 
-    def redirect_to_user
+    def user_model_updates
+        permit = params.permit(:username)
+
+        res = user.update(permit)
+        return nil if res
+
+        user.errors.full_messages
+    end
+
+    def email_update
+        return if params[:email] == user.email
+
+        if user.email_update_request.present?
+            # We already have a request for this, don't send another email.
+            return if params[:email] == user.email_update_request.email
+
+            # Delete the old request, we're making a new one.
+            user.email_update_request.destroy
+        end
+
+        # Create a new request.
+        res = EmailUpdateRequest.create(user: user, email: params[:email])
+        return if res.valid?
+            
+        # Return any errors.
+        user.email_update_request = nil
+        res.errors.full_messages
+    end
+
+    def redirect_to_auth
         redirect_to '/auth/login' unless user.present?
     end
 end

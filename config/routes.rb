@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'auth/register', to: 'authentication#register_enter_email_post'
   get 'auth/register/:email_token', to: 'authentication#register_remainder_form'
   post 'auth/register/:email_token', to: 'authentication#register_remainder_post'
+  get 'auth/email_update/:token', to: 'authentication#email_update'
 
   # Defines user routes.
   get 'user', to: 'user#current_user'

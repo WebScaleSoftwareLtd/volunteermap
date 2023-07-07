@@ -10,6 +10,8 @@ class NotificationComponent < ViewComponent::Base
     case @type
     when 'success'
       'bg-green-600 dark:bg-green-700'
+    when 'warning'
+      'bg-yellow-600 dark:bg-yellow-700'
     when 'error'
       'bg-red-600 dark:bg-red-700'
     end

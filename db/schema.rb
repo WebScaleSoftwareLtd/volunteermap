@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_04_061830) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_023551) do
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "opportunity_id", null: false
@@ -30,6 +30,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_04_061830) do
     t.datetime "updated_at", null: false
     t.index ["domain"], name: "index_domain_associations_on_domain"
     t.index ["user_id"], name: "index_domain_associations_on_user_id"
+  end
+
+  create_table "email_update_requests", force: :cascade do |t|
+    t.string "email", null: false
+    t.integer "user_id", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_email_update_requests_on_email", unique: true
+    t.index ["token"], name: "index_email_update_requests_on_token", unique: true
+    t.index ["user_id"], name: "index_email_update_requests_on_user_id", unique: true
   end
 
   create_table "half_tokens", force: :cascade do |t|
@@ -108,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_04_061830) do
   add_foreign_key "bookmarks", "opportunities"
   add_foreign_key "bookmarks", "users"
   add_foreign_key "domain_associations", "users"
+  add_foreign_key "email_update_requests", "users"
   add_foreign_key "half_tokens", "users"
   add_foreign_key "opportunities", "users"
   add_foreign_key "user_backup_codes", "users"

@@ -1,0 +1,9 @@
+<div class="block m-12 text-center">
+    <h1 class="text-4xl font-bold">
+        <%= icon 'fa-solid', 'times' %>
+    </h1>
+    <p class="mb-2">
+        Failed to update your e-mail address:
+    </p>
+    <code><pre><%= @errors.join("\n") %></pre></code>
+</div>
