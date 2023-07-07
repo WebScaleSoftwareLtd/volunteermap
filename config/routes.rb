@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   post 'user/domains', to: 'user#add_domain'
   delete 'user/domains', to: 'user#delete_domain'
   patch 'user/domains', to: 'user#revalidate_domain'
+  get 'user/frames/password', to: 'user#password_frame'
+  get 'user/frames/2fa', to: 'user#authenticator_frame'
   get 'users/:username', to: 'user#profile'
 
   # Defines opportunity routes.

@@ -1,0 +1,29 @@
+<%= render ButtonComponent.new(
+    name: button_name,
+    label: button_label,
+    icon: button_icon,
+    type: 'gray',
+) %>
+<script>
+    (function () {
+        // Get the button.
+        const button = document.getElementById("<%= button_name %>");
+
+        // Get the dialog.
+        const dialog = document.getElementById("<%= dialog_name %>");
+
+        // When the user clicks the button, open the dialog.
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            dialog.showModal();
+            return false;
+        });
+        button.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                dialog.showModal();
+                return false;
+            }
+        });
+    })();
+</script>

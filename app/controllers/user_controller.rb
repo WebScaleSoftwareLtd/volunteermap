@@ -1,5 +1,6 @@
 class UserController < ApplicationController
     before_action :redirect_to_auth, except: [:profile]
+    before_action :turbo_frames_only, only: [:password_frame, :authentifcator_frame]
 
     def current_user
         redirect_to "/users/#{user.username}"
@@ -56,6 +57,10 @@ class UserController < ApplicationController
         @opportunities = @profile_user.opportunities.page(params[:page])
     end
 
+    def password_frame; end
+
+    def authentifcator_frame; end
+
     private
 
     def user_model_updates
@@ -89,5 +94,9 @@ class UserController < ApplicationController
 
     def redirect_to_auth
         redirect_to '/auth/login' unless user.present?
+    end
+
+    def turbo_frames_only
+        raise ActionController::RoutingError.new('Not Found') unless turbo_frame_request?
     end
 end

@@ -1,5 +1,5 @@
 <<%= @href ? 'a' : 'button' %>
-    name="<%= @name %>"
+    name="<%= @name %>" id="<%= @name %>"
     <% if @type == 'submit' && !@href %> type="submit"<% end %>
     <% if @href %>href="<%= @href %>"<% end %>
     class="px-3 py-2 rounded-lg <%= pick_color %>"

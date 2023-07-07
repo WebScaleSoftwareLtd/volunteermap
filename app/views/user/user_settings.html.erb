@@ -5,6 +5,18 @@
         long: true,
     ) %>
 
+    <dialog id="authenticator_dialog" class="m-auto p-0" data-controller="dialog">
+        <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
+            <turbo-frame id="authenticator_frame" src="/user/frames/2fa"></turbo-frame>
+        </div>
+    </dialog>
+
+    <dialog id="password_dialog" class="m-auto p-0" data-controller="dialog">
+        <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
+            <turbo-frame id="password_frame" src="/user/frames/password"></turbo-frame>
+        </div>
+    </dialog>
+
     <turbo-frame id="settings_frame">
         <div class="max-w-3xl">
             <% unless @errors.nil? %>
@@ -46,14 +58,52 @@
                     ) %>
                 <% end %>
 
-                <div class="mt-5">
-                    <%= render ButtonComponent.new(
-                        name: 'update',
-                        label: 'Update',
-                        type: 'submit',
-                        icon: 'pen',
-                    ) %>
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <label for="authenticator">
+                            <p>
+                                <b>Authenticator Settings:</b>
+                            </p>
+                            <p class="text-sm text-gray-900 dark:text-gray-300">
+                                Click the button below to open the authenticator modal to update your authenticator details.
+                            </p>
+                        </label>
+                    </div>
+                    <%= render partial: 'button_dialog_hook', locals: {
+                        button_name: 'authenticator',
+                        button_label: 'Open Authenticator Modal',
+                        button_icon: 'lock',
+                        dialog_name: 'authenticator_dialog',
+                    } %>
                 </div>
+
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <label for="authenticator">
+                            <p>
+                                <b>Password Settings:</b>
+                            </p>
+                            <p class="text-sm text-gray-900 dark:text-gray-300">
+                                Click the button below to open the password modal to update your password.
+                            </p>
+                        </label>
+                    </div>
+                    <%= render partial: 'button_dialog_hook', locals: {
+                        button_name: 'password',
+                        button_label: 'Open Password Modal',
+                        button_icon: 'key',
+                        dialog_name: 'password_dialog',
+                    } %>
+                </div>
+
+                <hr class="my-6 dark:border-gray-600" />
+
+                <%= render ButtonComponent.new(
+                    name: 'update',
+                    label: 'Update',
+                    type: 'submit',
+                    icon: 'pen',
+                ) %>
             <% end %>
         </div>
     </turbo-frame>
