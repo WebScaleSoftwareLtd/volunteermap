@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'user/frames/password', to: 'user#password_frame'
   post 'user/frames/password', to: 'user#password_frame_submit'
   get 'user/frames/2fa', to: 'user#authenticator_frame'
+  post 'user/frames/2fa', to: 'user#authenticator_router'
   get 'users/:username', to: 'user#profile'
 
   # Defines opportunity routes.

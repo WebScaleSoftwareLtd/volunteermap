@@ -32,6 +32,10 @@ class User < ApplicationRecord
         half_tokens.destroy_all
     end
 
+    def generate_backup_codes
+        # TODO: Generate the backup codes!
+    end
+
     private
 
     def create_user_validation_id!

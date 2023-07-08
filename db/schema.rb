@@ -104,7 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_023551) do
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
-    t.string "email", null: false
+    t.string "email"
     t.string "user_validation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

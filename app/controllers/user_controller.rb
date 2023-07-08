@@ -80,9 +80,60 @@ class UserController < ApplicationController
         render 'password_frame'
     end
 
-    def authentifcator_frame; end
+    def authenticator_frame
+        render user[:'2fa_token'] ?
+            'existing_authenticator_init_frame' :
+            'new_authenticator_init_frame'
+    end
+
+    def delete_authenticator
+        return unless check_password
+        user.update('2fa_token' => nil)
+        render 'new_authenticator_init_frame'
+    end
+
+    def backup_codes_view
+        return unless check_password
+        @codes = user.user_backup_codes
+        render 'backup_codes'
+    end
+
+    def regenerate_codes
+        return unless check_password
+        User.transaction do
+            user.user_backup_codes.destroy_all
+            @codes = user.generate_backup_codes
+        end
+        render 'backup_codes'
+    end
+
+    def authenticator_update_post
+        return delete_authenticator if params[:remove_2fa]
+        return backup_codes_view if params[:recovery_codes]
+        return regenerate_codes if params[:regenerate_codes]
+        render 'existing_authenticator_init_frame'
+    end
+
+    def authenticator_add_post
+    end
+
+    def authenticator_router
+        user[:'2fa_token'] ?
+            authenticator_update_post :
+            authenticator_add_post
+    end
 
     private
+
+    def check_password
+        password = params[:authenticator_password]
+        res = user.authenticate(password)
+        unless res
+            @invalid_password = true
+            render 'existing_authenticator_init_frame', status: :bad_request
+        end
+        res
+    end
 
     def user_model_updates
         permit = params.permit(:username)

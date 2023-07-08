@@ -1,0 +1,41 @@
+<turbo-frame id="authenticator_frame">
+    <div class="flex">
+        <div class="flex-col">
+            <h2 class="text-xl font-bold">Backup Codes</h2>
+            <p class="mt-1 dark:text-gray-200">
+                These are your currently active recovery codes.
+            </p>
+        </div>
+        <div class="flex-grow text-right ml-6 mt-0">
+            <form method="dialog" id="codes_form">
+                <button class="text-2xl mt-0" aria-label="Close">
+                    <%= icon 'fa-solid', 'times' %>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <% if @codes.empty? %>
+        <p class="mt-4">
+            No authenticator codes present.
+        </p>
+    <% else %>
+        <code>
+            <% @codes.each do |code| %>
+                <%= code %><br />
+            <% end %>
+        </code>
+    <% end %>
+
+    <div class="mt-4">
+        <%= form_with method: :post do |form| %>
+            <%= form.hidden_field :authenticator_password, value: params[:authenticator_password] %>
+            <%= render ButtonComponent.new(
+                name: 'regenerate_codes',
+                label: 'Regenerate Codes',
+                type: 'submit',
+                icon: 'circle-notch',
+            ) %>
+        <% end %>
+    </div>
+</turbo-frame>
