@@ -59,6 +59,27 @@ class UserController < ApplicationController
 
     def password_frame; end
 
+    def password_frame_submit
+        @errors = []
+
+        # Check the current password.
+        if !user.authenticate(params[:current_password])
+            @errors << 'Current password is incorrect.'
+            return render 'password_frame', status: :bad_request
+        end
+
+        # Check the new password matches the confirmation.
+        if params[:new_password] != params[:new_password_confirmation]
+            @errors << 'New password does not match confirmation.'
+            return render 'password_frame', status: :bad_request
+        end
+
+        # Try to update the password.
+        res = user.update(password: params[:new_password])
+        @errors = user.errors.full_messages unless res
+        render 'password_frame'
+    end
+
     def authentifcator_frame; end
 
     private

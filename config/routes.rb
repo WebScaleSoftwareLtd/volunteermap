@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   delete 'user/domains', to: 'user#delete_domain'
   patch 'user/domains', to: 'user#revalidate_domain'
   get 'user/frames/password', to: 'user#password_frame'
+  post 'user/frames/password', to: 'user#password_frame_submit'
   get 'user/frames/2fa', to: 'user#authenticator_frame'
   get 'users/:username', to: 'user#profile'
 
