@@ -1,4 +1,4 @@
 class UserBackupCode < ApplicationRecord
     belongs_to :user
-    validates :code, presence: true
+    validates :backup_code, presence: true
 end

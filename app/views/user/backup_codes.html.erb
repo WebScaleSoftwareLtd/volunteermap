@@ -3,7 +3,7 @@
         <div class="flex-col">
             <h2 class="text-xl font-bold">Backup Codes</h2>
             <p class="mt-1 dark:text-gray-200">
-                These are your currently active recovery codes.
+                These are your currently active recovery codes. Each code can only be used once.
             </p>
         </div>
         <div class="flex-grow text-right ml-6 mt-0">
@@ -20,11 +20,13 @@
             No authenticator codes present.
         </p>
     <% else %>
-        <code>
-            <% @codes.each do |code| %>
-                <%= code %><br />
-            <% end %>
-        </code>
+        <div class="mt-2">
+            <code>
+                <% @codes.each do |code| %>
+                    <%= code %><br />
+                <% end %>
+            </code>
+        </div>
     <% end %>
 
     <div class="mt-4">

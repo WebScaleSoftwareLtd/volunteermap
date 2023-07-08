@@ -33,10 +33,22 @@ class User < ApplicationRecord
     end
 
     def generate_backup_codes
-        # TODO: Generate the backup codes!
+        codes = 10.times.map { "#{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun}" }
+        codes.each do |code|
+            UserBackupCode.create!(user: self, backup_code: code)
+        end
+        codes
     end
 
     private
+
+    def rand_adj
+        Spicy::Proton.adjective
+    end
+
+    def rand_noun
+        Spicy::Proton.noun
+    end
 
     def create_user_validation_id!
         if user_validation_id.nil?

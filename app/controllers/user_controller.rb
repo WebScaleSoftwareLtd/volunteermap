@@ -94,7 +94,7 @@ class UserController < ApplicationController
 
     def backup_codes_view
         return unless check_password
-        @codes = user.user_backup_codes
+        @codes = user.user_backup_codes.pluck(:backup_code)
         render 'backup_codes'
     end
 

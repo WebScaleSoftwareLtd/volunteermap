@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.5"
 
+# Random word generator.
+gem 'spicy-proton', '~> 2.1.15'
+
 # Markdown support for descriptions.
 gem "redcarpet"
 
