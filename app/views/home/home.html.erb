@@ -1,1 +1,27 @@
-<%= render EventsViewComponent.new %>
+<div id="viewport_gobbler" class="absolute w-full">
+    <%= render EventsViewComponent.new %>
+</div>
+
+<script>
+    (function () {
+        // Get the viewport gobbler.
+        const viewportGobbler = document.getElementById("viewport_gobbler");
+
+        // Watch for window resizes.
+        const resizeEvent = function () {
+            // Get the viewport height.
+            const vh = window.innerHeight;
+
+            // Set the viewport gobbler height.
+            viewportGobbler.style.height = `${vh - viewportGobbler.offsetTop}px`;
+            viewportGobbler.style.top = `${viewportGobbler.offsetTop}px`;
+        };
+        window.addEventListener("resize", resizeEvent, true);
+        resizeEvent();
+
+        // Kill the resize event when the viewport gobbler is removed.
+        viewportGobbler.addEventListener("DOMNodeRemoved", function () {
+            window.removeEventListener("resize", resizeEvent);
+        });
+    })();
+</script>
