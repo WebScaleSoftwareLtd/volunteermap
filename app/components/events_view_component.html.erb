@@ -1,6 +1,6 @@
 <div class="w-full h-full relative overflow-hidden" data-controller="events-view">
     <div class="absolute w-full h-full mt-6 z-50 pointer-events-none">
-        <div class="overflow-scroll h-4/6 max-h-max">
+        <div class="overflow-scroll h-4/6 max-h-max scrollbar-nuke">
             <div class="block ml-auto mr-auto sm:mr-8 max-w-max pointer-events-auto">
                 <div class="block dark:bg-gray-900 p-4 rounded mx-4 max-w-lg">
                     <div data-events-view-target="search"></div>
@@ -38,6 +38,14 @@
     }
 
     .ais-GeoSearch-tree {
+        display: none;
+    }
+
+    .scrollbar-nuke {
+        scrollbar-width: none;
+    }
+
+    .scrollbar-nuke::-webkit-scrollbar {
         display: none;
     }
 </style>
