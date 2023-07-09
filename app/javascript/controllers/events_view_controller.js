@@ -61,13 +61,12 @@ export default class extends Controller {
       instantsearch.widgets.geoSearch({
         container: this.mapTarget,
         googleReference: window.google,
-        initialZoom: 15,
         initialPosition: { lat, lng },
         mapOptions: {
           fullscreenControl: false,
           mapTypeControl: true,
           zoomControl: false,
-          zoom: 15,
+          zoom: 14,
           mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
             mapTypeIds: ["roadmap", "satellite"],

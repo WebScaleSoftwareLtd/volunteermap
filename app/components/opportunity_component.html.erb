@@ -20,7 +20,7 @@
         </p>
 
         <p class="text-sm mt-2">
-            Posted by <a href="/users/<%= @value.user.username %>">
+            Posted by <a href="/users/<%= @value.user.username %>" target="_top">
                 <%= @value.user.username %>
             </a> on <%= @value.created_at.strftime('%B %d, %Y') %>.
             <% if @value.domain_association.present? %>
