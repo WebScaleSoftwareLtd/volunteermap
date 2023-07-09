@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get 'auth/register/:email_token', to: 'authentication#register_remainder_form'
   post 'auth/register/:email_token', to: 'authentication#register_remainder_post'
   get 'auth/email_update/:token', to: 'authentication#email_update'
+  get 'auth/password_update', to: 'authentication#password_reset_init'
+  post 'auth/password_update', to: 'authentication#password_reset_email'
+  get 'auth/password_update/:token', to: 'authentication#password_reset_form'
+  post 'auth/password_update/:token', to: 'authentication#password_reset_form_post'
 
   # Defines user routes.
   get 'user', to: 'user#current_user'

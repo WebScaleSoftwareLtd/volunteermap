@@ -182,9 +182,75 @@ class AuthenticationController < ApplicationController
         @errors = email_update_request.user.errors.full_messages
     end
 
-    # TODO: password resets
+    def password_reset_init; end
+
+    def password_reset_email
+        # Get the user from the e-mail.
+        user = User.find_by(email: params[:email].downcase)
+        user.password_update_requests.create! unless user.nil?
+
+        # Render the view.
+        @possibly_successful = true
+        render 'password_reset_init'
+    end
+
+    def password_reset_form
+        @reset_user = get_user
+    end
+
+    def password_reset_form_post
+        @reset_user = get_user
+
+        # Check if the passwords match.
+        if params[:password] != params[:password_confirmation]
+            @errors = ['Passwords do not match.']
+            return render 'password_reset_form'
+        end
+
+        # If a 2FA token is meant to be set, validate it.
+        user_2fa = @reset_user[:'2fa_token']
+        if user_2fa.present?
+            valid = ROTP::TOTP.new(user_2fa).verify(params[:'2fa_token'], drift_behind: 15)
+            unless valid
+                # Check the users backup codes.
+                backup_code = @reset_user.user_backup_codes.where(backup_code: params[:'2fa_token']).first
+                if backup_code.present?
+                    # We should destroy this code but set valid to true.
+                    backup_code.destroy
+                    valid = true
+                end
+            end
+
+            unless valid
+                @errors = ['2FA token is invalid.']
+                return render 'password_reset_form'
+            end
+        end
+
+        # Update the password.
+        res = @reset_user.update(password: params[:password])
+
+        # Run logout on the user.
+        @reset_user.logout
+
+        # If it was successful, redirect to the login page.
+        return redirect_to '/auth/login', status: :see_other if res
+
+        # Otherwise, render the form again.
+        @errors = @reset_user.errors.full_messages
+        render 'password_reset_form', status: :bad_request
+    end
 
     private
+
+    def get_user
+        req = PasswordUpdateRequest.find_by!(token: params[:token])
+        if req.updated_at < 15.minutes.ago
+            req.destroy
+            raise ActiveRecord::RecordNotFound
+        end
+        req.user
+    end
 
     def handle_preexisting_token
         auth_cookie = cookies.signed[:auth]

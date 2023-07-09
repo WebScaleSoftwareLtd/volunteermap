@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_09_092743) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_09_100313) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -102,6 +102,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_092743) do
     t.index ["uuid"], name: "index_opportunities_on_uuid", unique: true
   end
 
+  create_table "password_update_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_password_update_requests_on_token", unique: true
+    t.index ["user_id"], name: "index_password_update_requests_on_user_id"
+  end
+
   create_table "pending_signups", force: :cascade do |t|
     t.string "email", null: false
     t.string "email_token", null: false
@@ -152,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_092743) do
   add_foreign_key "email_update_requests", "users"
   add_foreign_key "half_tokens", "users"
   add_foreign_key "opportunities", "users"
+  add_foreign_key "password_update_requests", "users"
   add_foreign_key "user_backup_codes", "users"
   add_foreign_key "user_tokens", "users"
 end

@@ -6,4 +6,8 @@ class UserMailer < ApplicationMailer
     def email_update
         mail(to: params[:email], subject: "VolunteerMap | Confirm to update your e-mail address")
     end
+
+    def password_update
+        mail(to: params[:email], subject: "VolunteerMap | Confirm to update your password")
+    end
 end
