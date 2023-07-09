@@ -202,6 +202,6 @@ class UserController < ApplicationController
     end
 
     def turbo_frames_only
-        raise ActionController::RoutingError.new('Not Found') unless turbo_frame_request?
+        raise ActionController::RoutingError.new('Not Found') unless request.headers['Turbo-Frame'].present?
     end
 end

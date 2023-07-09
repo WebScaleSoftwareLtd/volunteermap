@@ -1,3 +1,43 @@
-<div class="w-full h-full" data-controller="events-view">
-    <div class="absolute w-full h-full" data-events-view-target="map"></div>
+<div class="w-full h-full relative overflow-hidden" data-controller="events-view">
+    <div class="absolute w-full h-full mt-6 z-50 pointer-events-none">
+        <div class="overflow-scroll h-4/6 max-h-max">
+            <div class="block mx-auto max-w-max pointer-events-auto">
+                <div class="block dark:bg-gray-900 p-4 rounded mx-4 max-w-lg">
+                    <div data-events-view-target="search"></div>
+
+                    <hr class="my-4 dark:border-gray-600" />
+
+                    <div class="flex">
+                        <div class="flex-col">
+                            <div data-events-view-target="mentallyTaxingToggle"></div>
+                        </div>
+                        <div class="flex-col ml-1">
+                            <div data-events-view-target="physicallyTaxingToggle"></div>
+                        </div>
+                        <div class="flex-col ml-1">
+                            <div data-events-view-target="timeFlexibleToggle"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block dark:bg-gray-800 p-4 rounded mx-4 max-w-lg pointer-events-auto" data-events-view-target="hits"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative w-full h-full" data-events-view-target="map"></div>
 </div>
+
+<style>
+    .ais-GeoSearch {
+        height: 100%;
+    }
+
+    .ais-GeoSearch-map {
+        height: 100%;
+    }
+
+    .ais-GeoSearch-tree {
+        display: none;
+    }
+</style>

@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
             token = UserToken.find_by(token: auth_cookie)
 
             # Drop the cookie if the token no longer exists.
-            return cookie.delete(:auth) unless token.present?
+            return cookies.delete(:auth) unless token.present?
 
             # Drop the cookie and token if it is expired.
             if token.updated_at < 3.days.ago
                 token.destroy
-                cookie.delete(:auth)
+                cookies.delete(:auth)
                 return
             end
 

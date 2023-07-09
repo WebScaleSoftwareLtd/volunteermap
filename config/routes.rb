@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'home#home'
+  get '_home/opportunity/:id', to: 'home#render_opportunity'
 
   # Defines authentication routes.
   get 'auth/login', to: 'authentication#login_form'

@@ -3,19 +3,19 @@
         <a class="unstyled" href="mailto:<%= @value.email %>" target="_top">
             <%= icon 'fa-solid', 'envelope' %>  <%= @value.email %>
         </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
     <% end %>
     <% if @value.phone.present? %>
         <a class="unstyled" href="tel:<%= @value.phone %>" target="_top">
             <%= icon 'fa-solid', 'phone' %>  <%= @value.phone %>
         </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
     <% end %>
     <% if @value.website.present? %>
         <a class="unstyled" href="<%= @value.website %>" target="_blank">
             <%= icon 'fa-solid', 'globe' %>  <%= @value.website %>
         </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
     <% end %>
     <% if @owned %>
         <a class="unstyled" href="/opportunities/<%= @value.uuid %>/edit" target="_top">
