@@ -24,6 +24,7 @@ gem "dnsruby"
 
 # Library for TOTP.
 gem "rotp"
+gem "rqrcode"
 
 # Support for Algolia.
 gem "algoliasearch-rails"

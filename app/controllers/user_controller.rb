@@ -100,10 +100,39 @@ class UserController < ApplicationController
 
     def regenerate_codes
         return unless check_password
-        User.transaction do
-            user.user_backup_codes.destroy_all
-            @codes = user.generate_backup_codes
+        @codes = user.generate_backup_codes
+        render 'backup_codes'
+    end
+
+    def setup_authenticator
+        # Do our own check password logic since the DRY method targets updates.
+        password = params[:authenticator_password]
+        unless user.authenticate(password)
+            @error = 'The password you entered is incorrect.'
+            return render 'new_authenticator_init_frame', status: :bad_request
         end
+
+        # Get the secret and 2FA code from the body.
+        secret = params[:authenticator_secret]
+        code = params[:authenticator_code]
+        code_valid = false
+        begin
+            code_valid = ROTP::TOTP.new(secret).verify(code, drift_behind: 15)
+        rescue
+            # Do nothing, code_valid is already false.
+        end
+
+        # If the code is invalid, return an error.
+        unless code_valid
+            @error = 'The 2FA code you entered is incorrect.'
+            return render 'new_authenticator_init_frame', status: :bad_request
+        end
+
+        # If we get here, the code is valid, so we can set the 2FA token.
+        user.update!('2fa_token' => secret)
+
+        # Get the recovery codes and render the backup codes view.
+        @codes = user.generate_backup_codes
         render 'backup_codes'
     end
 
@@ -115,6 +144,8 @@ class UserController < ApplicationController
     end
 
     def authenticator_add_post
+        return setup_authenticator if params[:setup_2fa]
+        render 'new_authenticator_init_frame'
     end
 
     def authenticator_router
@@ -145,6 +176,8 @@ class UserController < ApplicationController
     end
 
     def email_update
+        params[:email] = params[:email].downcase if params[:email].class == String
+
         return if params[:email] == user.email
 
         if user.email_update_request.present?

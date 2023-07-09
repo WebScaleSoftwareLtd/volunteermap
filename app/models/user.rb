@@ -33,11 +33,14 @@ class User < ApplicationRecord
     end
 
     def generate_backup_codes
-        codes = 10.times.map { "#{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun}" }
-        codes.each do |code|
-            UserBackupCode.create!(user: self, backup_code: code)
+        UserBackupCode.transaction do
+            user_backup_codes.destroy_all
+            codes = 10.times.map { "#{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun} #{rand_adj} #{rand_noun}" }
+            codes.each do |code|
+                UserBackupCode.create!(user: self, backup_code: code)
+            end
+            codes
         end
-        codes
     end
 
     private
