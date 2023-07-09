@@ -5,7 +5,7 @@ const algoliaClient = window.algoliasearchWaitPromise.then(() => algoliasearch(.
 
 // Connects to data-controller="events-view"
 export default class extends Controller {
-  static targets = ["map", "search", "mentallyTaxingToggle", "physicallyTaxingToggle", "timeFlexibleToggle", "hits"]
+  static targets = ["map", "search", "hits"]
 
   connect() {
     window.algoliasearchWaitPromise.then(this.loadEvents.bind(this))
@@ -28,36 +28,6 @@ export default class extends Controller {
 
     // Setup the Algolia widgets.
     client.addWidgets([
-      instantsearch.widgets.toggleRefinement({
-        container: this.mentallyTaxingToggleTarget,
-        attribute: "mentally_taxing",
-        templates: {
-          labelText({}, { html }) {
-            return html`<span class="ml-1"><i class="fa-solid fa-brain" aria-hidden="true"></i> Mentally Taxing</span>`
-          },
-        },
-      }),
-
-      instantsearch.widgets.toggleRefinement({
-        container: this.physicallyTaxingToggleTarget,
-        attribute: "physically_taxing",
-        templates: {
-          labelText({}, { html }) {
-            return html`<span class="ml-1"><i class="fa-solid fa-person-military-pointing" aria-hidden="true"></i> Physically Taxing</span>`
-          },
-        },
-      }),
-
-      instantsearch.widgets.toggleRefinement({
-        container: this.timeFlexibleToggleTarget,
-        attribute: "time_flexible",
-        templates: {
-          labelText({}, { html }) {
-            return html`<span class="ml-1"><i class="fa-solid fa-clock" aria-hidden="true"></i> Time Flexible</span>`
-          },
-        },
-      }),
-
       instantsearch.widgets.geoSearch({
         container: this.mapTarget,
         googleReference: window.google,

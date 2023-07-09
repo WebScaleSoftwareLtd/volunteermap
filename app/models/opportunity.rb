@@ -27,8 +27,18 @@ class Opportunity < ApplicationRecord
     validate :domain_association_is_valid!
 
     algoliasearch do
-        attribute :created_at, :updated_at, :title, :description, :mentally_taxing,
-            :physically_taxing, :time_flexible, :category, :uuid
+        attribute :created_at, :updated_at, :title, :description, :category, :uuid,
+            :mentally_taxing, :physically_taxing, :time_flexible
+
+        attribute :not_mentally_taxing do
+            !mentally_taxing
+        end
+        attribute :not_physically_taxing do
+            !physically_taxing
+        end
+        attribute :not_time_flexible do
+            !time_flexible
+        end
 
         attribute :created_at_i do
             created_at.to_i
