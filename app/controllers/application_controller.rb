@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+    include ActiveStorage::SetCurrent
+
     before_action :handle_token
     helper_method :user
 

@@ -45,7 +45,7 @@
                 <% end %>
             <% end %>
 
-            <%= form_with method: :post do |form| %>
+            <%= form_with method: :post, multipart: true do |form| %>
                 <%= render TextboxComponent.new(
                     form: form,
                     name: :username,
@@ -69,6 +69,20 @@
                         ],
                     ) %>
                 <% end %>
+
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <label for="avatar">
+                            <p>
+                                <b>Avatar:</b>
+                            </p>
+                            <p class="text-sm text-gray-900 dark:text-gray-300">
+                                Upload a new avatar image. The image will be resized to 256x256.
+                            </p>
+                        </label>
+                    </div>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+                </div>
 
                 <div class="mb-3">
                     <div class="mb-2">

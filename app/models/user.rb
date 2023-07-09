@@ -1,6 +1,12 @@
 class User < ApplicationRecord
     include AlgoliaSearch
 
+    has_one_attached :avatar do |attachable|
+        attachable.variant :thumb, resize_to_limit: [256, 256]
+    end
+    validates :avatar, file_size: { less_than_or_equal_to: 3.megabytes },
+        file_content_type: { allow: ['image/jpeg', 'image/png'] }
+
     has_many :domain_associations, dependent: :destroy
     has_many :opportunities, dependent: :destroy
     has_many :user_tokens, dependent: :destroy
@@ -41,6 +47,11 @@ class User < ApplicationRecord
             end
             codes
         end
+    end
+
+    def avatar_url
+        return avatar.url if avatar.attached?
+        '/default-pfp.png'
     end
 
     private

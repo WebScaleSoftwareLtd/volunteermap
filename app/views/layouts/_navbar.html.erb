@@ -22,7 +22,7 @@
         <% if user %>
             <a tabindex="0" class="cursor-pointer" id="_pfp" aria-haspopup="true">
                 <img
-                    src="/default-pfp.png"
+                    src="<%= user.avatar_url %>"
                     alt="Avatar" class="h-8 rounded-full"
                 >
             </a>

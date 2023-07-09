@@ -167,7 +167,7 @@ class UserController < ApplicationController
     end
 
     def user_model_updates
-        permit = params.permit(:username)
+        permit = params.permit(:username, :avatar)
 
         res = user.update(permit)
         return nil if res
