@@ -5,7 +5,7 @@ const algoliaClient = window.algoliasearchWaitPromise.then(() => algoliasearch(.
 
 // Connects to data-controller="events-view"
 export default class extends Controller {
-  static targets = ["map", "search", "hits"]
+  static targets = ["map", "search", "hits", "refinements"]
 
   connect() {
     window.algoliasearchWaitPromise.then(this.loadEvents.bind(this))
