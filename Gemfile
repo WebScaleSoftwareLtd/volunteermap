@@ -111,5 +111,5 @@ group :production do
   gem "aws-sdk-s3", "~> 1.130"
 
   # Use Mailgun for sending emails.
-  gem "mailgun_rails", github: "jorgemanrubia/mailgun_rails"
+  gem 'mailgun-ruby', '~>1.2.10'
 end

@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/jorgemanrubia/mailgun_rails.git
-  revision: 0aa70be4f9c577423e1e8a0bdd51e44519a1af93
-  specs:
-    mailgun_rails (0.9.0)
-      actionmailer (>= 3.2.13)
-      json (>= 1.7.7)
-      rest-client (>= 1.6.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,6 +174,8 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.2.10)
+      rest-client (>= 2.0.2)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -343,7 +336,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
-  mailgun_rails!
+  mailgun-ruby (~> 1.2.10)
   net-dns
   pg (~> 1.5.3)
   puma (~> 5.0)
