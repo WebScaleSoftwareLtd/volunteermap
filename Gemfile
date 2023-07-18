@@ -112,4 +112,7 @@ group :production do
 
   # Use Mailgun for sending emails.
   gem 'mailgun-ruby', '~>1.2.10'
+
+  # Use good_job for background jobs.
+  gem "good_job", "~> 3.16.3"
 end
