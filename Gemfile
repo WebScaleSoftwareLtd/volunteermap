@@ -109,4 +109,7 @@ group :production do
 
   # Use AWS SDK for Ruby.
   gem "aws-sdk-s3", "~> 1.130"
+
+  # Use Mailgun for sending emails.
+  gem "mailgun_rails", github: "jorgemanrubia/mailgun_rails"
 end

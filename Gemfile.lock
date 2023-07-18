@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/jorgemanrubia/mailgun_rails.git
+  revision: 0aa70be4f9c577423e1e8a0bdd51e44519a1af93
+  specs:
+    mailgun_rails (0.9.0)
+      actionmailer (>= 3.2.13)
+      json (>= 1.7.7)
+      rest-client (>= 1.6.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -117,6 +126,8 @@ GEM
       reline (>= 0.3.1)
     dnsruby (1.70.0)
       simpleidn (~> 0.2.1)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     erubi (1.12.0)
     faraday (2.7.7)
       faraday-net_http (>= 2.0, < 3.1)
@@ -133,6 +144,9 @@ GEM
       sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    http-accept (1.7.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -192,6 +206,7 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.5.9)
     nokogiri (1.15.2-arm64-darwin)
       racc (~> 1.4)
@@ -238,6 +253,11 @@ GEM
     regexp_parser (2.8.1)
     reline (0.3.5)
       io-console (~> 0.5)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.5)
     rotp (6.2.2)
     rqrcode (2.2.0)
@@ -323,6 +343,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  mailgun_rails!
   net-dns
   pg (~> 1.5.3)
   puma (~> 5.0)
