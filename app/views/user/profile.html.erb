@@ -1,3 +1,6 @@
+<% content_for :title do %> | <%= @profile_user.username %>'s Profile<% end %>
+<% content_for :description do %>Displays <%= @profile_user.username %>'s active postings.<% end %>
+
 <div class="block m-12">
     <%= render partial: 'user_info', locals: {user: @profile_user, slim: true} %>
 

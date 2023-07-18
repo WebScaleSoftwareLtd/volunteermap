@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Volunteermap</title>
+    <title>VolunteerMap<%= yield :title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" type="image/png" href="/favicon.png">
     <%= csrf_meta_tags %>
@@ -10,6 +10,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <meta name="description" content="<%= yield :description %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VolunteerMap<%= yield :title %>">
+    <meta property="og:url" content="https://volunteermap.io/">
+    <meta property="og:description" content="<%= yield :description %>">
 
     <script id="algoliasearch_script" async src="https://cdn.jsdelivr.net/npm/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js" integrity="sha256-V3GHVlMSAsogT3wL0OY/l4d3fRLa56gNzlnzdIMBIWg=" crossorigin="anonymous"></script>
     <script id="instantsearch_script" async src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.56.4/dist/instantsearch.production.min.js" integrity="sha256-U62jq/Jnfr93B4FQceG9WxzOg0o6WqJShZXL20/iKXQ=" crossorigin="anonymous"></script>

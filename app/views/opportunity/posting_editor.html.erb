@@ -1,3 +1,6 @@
+<% content_for :title do %> | <%= @edit ? 'Edit a Posting' : 'Create a New Posting' %><% end %>
+<% content_for :description do %>Allows you to <%= @edit ? 'edit' : 'create' %> a posting.<% end %>
+
 <div class="block m-12">
     <%= render TitleComponent.new(
         title: @edit ? 'Edit a Posting' : 'Create a New Posting',

@@ -1,3 +1,6 @@
+<% content_for :title do %> | <%= @record.title %><% end %>
+<% content_for :description do %><%= @record.description %><% end %>
+
 <div class="block m-12">
     <%= render TitleComponent.new(
         title: @record.title,
