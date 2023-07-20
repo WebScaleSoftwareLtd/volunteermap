@@ -9,8 +9,10 @@
     ) %>
 
     <dialog id="authenticator_dialog" class="m-auto p-0" data-controller="dialog">
-        <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
-            <turbo-frame id="authenticator_frame" src="/user/frames/2fa"></turbo-frame>
+        <div>  <!-- div is needed in webkit - fuck knows why -->
+            <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
+                <turbo-frame id="authenticator_frame" src="/user/frames/2fa"></turbo-frame>
+            </div>
         </div>
     </dialog>
     <script>
@@ -21,8 +23,10 @@
     </script>
 
     <dialog id="password_dialog" class="m-auto p-0" data-controller="dialog">
-        <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
-            <turbo-frame id="password_frame" src="/user/frames/password"></turbo-frame>
+        <div>  <!-- div is needed in webkit - fuck knows why -->
+            <div class="bg-white dark:bg-gray-800 p-4 block w-full h-full dark:text-white">
+                <turbo-frame id="password_frame" src="/user/frames/password"></turbo-frame>
+            </div>
         </div>
     </dialog>
     <script>

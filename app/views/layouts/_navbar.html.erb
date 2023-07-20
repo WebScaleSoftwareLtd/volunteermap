@@ -1,6 +1,8 @@
 <% unless user.nil? %>
     <dialog id="user_dialog" class="m-auto p-0" data-controller="dialog">
-        <%= render partial: 'layouts/user_modal' %>
+        <div> <!-- div is needed in webkit - fuck knows why -->
+            <%= render partial: 'layouts/user_modal' %>
+        </div>
     </dialog>
 <% end %>
 

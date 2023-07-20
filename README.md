@@ -4,6 +4,17 @@
 
 A website for mapping volunteering opportunities. Powered by Hotwired, Rails, and Algolia.
 
+## macOS specific instructions
+
+If you use macOS, you will need Brew (if you do software development, this should be installed on your system anyway). After this, you will need to run the following:
+
+```
+brew install libpq
+bundle config set --global build.pg --with-pg-config=/opt/homebrew/opt/libpq/bin/pg_config
+```
+
+This will allow you to install the pg gem.
+
 ## Setting up for Development
 
 To setup your development environment for the version of Rails and Ruby we use, you will want to install rbenv on your system. Once this is done, go ahead and run `rbenv install` to install the version of Ruby we are using (typically near the latest). You can then do `bundler` to install all dependencies including Rails.
