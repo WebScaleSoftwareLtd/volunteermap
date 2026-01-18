@@ -2,26 +2,60 @@
   <img src="./public/logo-black.png" alt="VolunteerMap Logo" />
 </p>
 
-A website for mapping volunteering opportunities. Powered by Hotwired, Rails, and Algolia.
+A website for mapping volunteering opportunities. Powered by **Next.js**, **Postgres**, **Drizzle**, **Algolia**, and **Google Maps**.
 
 ## Setting up for Development
 
-To setup your development environment for the version of Rails and Ruby we use, you will want to install rbenv on your system. Once this is done, go ahead and run `rbenv install` to install the version of Ruby we are using (typically near the latest).
+### Prerequisites
 
+- Node.js + npm
+- Postgres (or a hosted Postgres URL)
+- Algolia account (search)
+- Google Maps Platform API key (maps)
 
-**macOS note:** If you use macOS, you will need Brew (if you do software development, this should be installed on your system anyway). After this, you will need to run `brew install libpq` and `bundle config set --global build.pg --with-pg-config="$(brew --prefix libpq)/bin/pg_config"`. This will allow you to install the pg gem.
+### Environment variables
 
-You can then do `bundler` to install all dependencies including Rails.
+Create a `.env.local` with:
 
-On the first install, you will need to make an account with [Algolia](https://www.algolia.com/) for searching and [Google Maps Platform](https://developers.google.com/maps/) for mapping. From here, open a terminal and run `EDITOR=nano bin/rails credentials:edit --environment=development`. You will want to add the following with your keys substituted in:
-```yaml
-algolia:
-    application_id: <your application id>
-    api_key: <your api key>
-    read_only_api_key: <your "frontend" api key>
+```bash
+# Database
+DATABASE_URL="postgres://..."
 
-gmaps:
-    api_key: <your api key>
+# App URL (used in email links + redirects)
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Algolia
+NEXT_PUBLIC_ALGOLIA_APP_ID="..."
+NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY="..."  # search-only key
+ALGOLIA_ADMIN_API_KEY="..."               # admin key (server-side indexing)
+
+# Google Maps
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="..."
+
+# Mailgun (optional in dev)
+MAILGUN_DOMAIN="..."
+MAILGUN_API_KEY="..."
+
+# Avatars (S3)
+AWS_REGION="..."
+# Optional; if not set we auto-detect the bucket region via GetBucketLocation.
+AWS_S3_REGION="..." # e.g. eu-north-1
+AWS_S3_BUCKET="..."
+AWS_ACCESS_KEY_ID="..."
+AWS_SECRET_ACCESS_KEY="..."
 ```
 
-From here, run `bin/rails db:schema:load` to setup your database. Now you can run `bin/dev` and go to port 3000!
+### Install + run
+
+```bash
+npm install
+npm run db:push
+npm run dev
+```
+
+Then open `http://localhost:3000`.
+
+## Notes
+
+- **Database migrations**: this repo uses Drizzle; `npm run db:push` will sync schema to your DB during development.
+- **Avatars**: avatar uploads are stored in S3. This codebase does **not** use object ACLs (works with buckets that have “Bucket owner enforced”). If you want public avatars, configure a bucket policy to allow public `s3:GetObject` for the `avatars/` prefix; otherwise switch to signed URLs.

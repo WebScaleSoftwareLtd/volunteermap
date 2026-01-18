@@ -1,6 +1,0 @@
-<turbo-frame id="opportunity-<%= @opportunity.uuid %>">
-    <%= render OpportunityComponent.new(
-        value: @opportunity,
-        owned: user && @opportunity.user_id == user.id,
-    ) %>
-</turbo-frame>
