@@ -1,18 +1,18 @@
-import Mailgun from 'mailgun.js';
-import FormData from 'form-data';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
-const mailgun = new Mailgun(FormData);
+const ses =
+  process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
+    ? new SESClient({
+        region: process.env.AWS_REGION || 'us-east-1',
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        },
+      })
+    : null;
 
-const mg = process.env.MAILGUN_API_KEY
-  ? mailgun.client({
-      username: 'api',
-      key: process.env.MAILGUN_API_KEY,
-    })
-  : null;
-
-const MAILGUN_DOMAIN = process.env.MAILGUN_DOMAIN || '';
+const SES_FROM_EMAIL = process.env.SES_FROM_EMAIL || '';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-const FROM_EMAIL = `VolunteerMap <noreply@${MAILGUN_DOMAIN}>`;
 
 interface EmailOptions {
   to: string;
@@ -22,21 +22,40 @@ interface EmailOptions {
 }
 
 async function sendEmail(options: EmailOptions): Promise<void> {
-  if (!mg || !MAILGUN_DOMAIN) {
-    console.log('Email would be sent (Mailgun not configured):');
+  if (!ses || !SES_FROM_EMAIL) {
+    console.log('Email would be sent (SES not configured):');
     console.log('To:', options.to);
     console.log('Subject:', options.subject);
     console.log('Text:', options.text);
     return;
   }
 
-  await mg.messages.create(MAILGUN_DOMAIN, {
-    from: FROM_EMAIL,
-    to: options.to,
-    subject: options.subject,
-    text: options.text,
-    html: options.html,
+  const command = new SendEmailCommand({
+    Source: SES_FROM_EMAIL,
+    Destination: {
+      ToAddresses: [options.to],
+    },
+    Message: {
+      Subject: {
+        Data: options.subject,
+        Charset: 'UTF-8',
+      },
+      Body: {
+        Text: {
+          Data: options.text,
+          Charset: 'UTF-8',
+        },
+        ...(options.html && {
+          Html: {
+            Data: options.html,
+            Charset: 'UTF-8',
+          },
+        }),
+      },
+    },
   });
+
+  await ses.send(command);
 }
 
 export async function sendRegistrationEmail(
