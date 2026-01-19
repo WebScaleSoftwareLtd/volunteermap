@@ -43,9 +43,14 @@ export default async function CompleteRegistrationPage({
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900">Complete your account</h1>
-        <p className="mt-2 text-gray-600">
-          Creating account for <span className="font-medium">{pendingSignup.email}</span>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          Complete your account
+        </h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
+          Creating account for{' '}
+          <span className="font-medium text-gray-900 dark:text-gray-100">
+            {pendingSignup.email}
+          </span>
         </p>
       </div>
 
