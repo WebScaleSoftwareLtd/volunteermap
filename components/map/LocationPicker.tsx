@@ -16,9 +16,10 @@ const mapContainerStyle = {
   height: '400px',
 };
 
+// Default center will be set by GeoIP, this is just a fallback (center of US)
 const defaultCenter = {
-  lat: 40.7128,
-  lng: -74.006,
+  lat: 39.8283,
+  lng: -98.5795,
 };
 
 const defaultZoom = 14;
@@ -42,20 +43,45 @@ export function LocationPicker({
 
   // Get user's location on mount if no initial position
   useEffect(() => {
-    if (!initialLat && !initialLng && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const newCenter = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          setCenter(newCenter);
-        },
-        () => {
-          // Geolocation failed, use default
+    if (initialLat && initialLng) return;
+
+    let mounted = true;
+
+    const initLocation = async () => {
+      // First, try GeoIP for quick initial positioning
+      try {
+        const res = await fetch('https://geo-ip.astrids.workers.dev');
+        const data = await res.json();
+        if (mounted && data.lat && data.lng) {
+          setCenter({ lat: data.lat, lng: data.lng });
         }
-      );
-    }
+      } catch {
+        // GeoIP failed, continue to try browser geolocation
+      }
+
+      // Then try browser geolocation for more precise location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            if (mounted) {
+              setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            }
+          },
+          () => {
+            // Browser geolocation denied/failed
+          }
+        );
+      }
+    };
+
+    initLocation();
+
+    return () => {
+      mounted = false;
+    };
   }, [initialLat, initialLng]);
 
   const onMapLoad = useCallback((map: google.maps.Map) => {

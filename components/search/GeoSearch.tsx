@@ -24,9 +24,10 @@ const mapContainerStyle = {
   height: '100%',
 };
 
+// Default center will be set by GeoIP, this is just a fallback
 const defaultCenter = {
-  lat: 40.7128,
-  lng: -74.006,
+  lat: 39.8283,
+  lng: -98.5795,
 };
 
 export function GeoSearch() {
@@ -39,34 +40,50 @@ export function GeoSearch() {
   const [center, setCenter] = useState(defaultCenter);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
 
-  // Get user's location on mount
+  // Get user's location on mount - try GeoIP first for immediate result,
+  // then upgrade to browser geolocation if available
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const loc = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+    let mounted = true;
+
+    const initLocation = async () => {
+      // First, try GeoIP for quick initial positioning
+      try {
+        const res = await fetch('https://geo-ip.astrids.workers.dev');
+        const data = await res.json();
+        if (mounted && data.lat && data.lng) {
+          const loc = { lat: Number(data.lat), lng: Number(data.lng) };
           setUserLocation(loc);
           setCenter(loc);
-        },
-        async () => {
-          // Try geo-ip fallback
-          try {
-            const res = await fetch('https://geo-ip.astrids.workers.dev');
-            const data = await res.json();
-            if (data.lat && data.lng) {
-              const loc = { lat: data.lat, lng: data.lng };
+        }
+      } catch {
+        // GeoIP failed, continue to try browser geolocation
+      }
+
+      // Then try browser geolocation for more precise location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            if (mounted) {
+              const loc = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
               setUserLocation(loc);
               setCenter(loc);
             }
-          } catch {
-            // Use default
+          },
+          () => {
+            // Browser geolocation denied/failed, GeoIP result (if any) remains
           }
-        }
-      );
-    }
+        );
+      }
+    };
+
+    initLocation();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const onMapLoad = useCallback((map: google.maps.Map) => {
